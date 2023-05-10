@@ -53,25 +53,13 @@
                         <h3 class="text-center mb-40">Sistem Tugas Akhir</h3>
                         <div class="w-form">
                             <form id="email-form" method="POST" action="<?php echo site_url('clogin/auth'); ?>">
-                                <!-- <a href="http://google.com" class="button button-google button-block w-button">Login with Google</a>
-                                <p class="text-center">or continue with email:</p> -->
                                 <input type="email" class="input w-input" maxlength="256" name="email" placeholder="Enter your email" id="email" required="" />
                                 <input type="password" class="input w-input" maxlength="256" name="password" placeholder="Enter your password" id="password" required="" />
-                                <!-- <label class="w-checkbox checkbox-field mb-40"> -->
-                                <!-- <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
-                                <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" required="" style="opacity:0;position:absolute;z-index:-1" /><span class="hint w-form-label">Remember me<a href="/" target="_blank" class="link"></a></span> -->
-                                <!-- </label> -->
                                 <input type="submit" value="Login" data-wait="Please wait..." class="button button-primary button-block w-button" />
                                 <p class="text-center hint"><a href="/forgot-password" class="link">Forgot your password?</a></p>
                             </form>
                             <div class="w3-panel w3-blue w3-display-container">
                                 <?php echo $this->session->flashdata('msg'); ?>
-                            </div>
-                            <div class="success-message w-form-done">
-                                <div>Thank you! Your submission has been received!</div>
-                            </div>
-                            <div class="error-message w-form-fail">
-                                <div>Oops! Something went wrong while submitting the form.</div>
                             </div>
                         </div>
                     </div>

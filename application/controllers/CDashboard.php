@@ -14,15 +14,15 @@ class CDashboard extends CI_Controller
     }
 
     public function index()
-    {
+    {   $data['title'] = 'Dashboard';
         if($this->session->userdata('level') == 'Mahasiswa'){
-            $this->load->view('mahasiswa/index');
+            $this->load->view('mahasiswa/index', $data);
         }elseif($this->session->userdata('level') == 'Dosen'){
-            $this->load->view('dosen/index');
+            $this->load->view('dosen/index', $data);
         }elseif($this->session->userdata('level') == 'Kaprodi'){
-            $this->load->view('kaprodi/index');
+            $this->load->view('kaprodi/index', $data);
         }elseif($this->session->userdata('level') == 'Admin'){
-            $this->load->view('admin/index');
+            $this->load->view('admin/index', $data);
         }else{
             $url = base_url();
             echo "<script> alert('Maaf Level Tidak Valdi') </script>";

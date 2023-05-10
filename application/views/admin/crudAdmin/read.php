@@ -9,32 +9,10 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
-  <link href="<?php echo base_url() ?>assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="<?php echo base_url() ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="<?php echo base_url() ?>assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.5.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <!-- HEAD LOAD ASSETS -->
+  <?php $this->load->view('layouts/assets');?>
+  <!-- HEAD LOAD ASSETS END! -->
+  
 </head>
 
 <body>
@@ -62,56 +40,61 @@
 
     <section class="section dashboard">
       <div class="row">
-        <h1>Data Mahasiswa</h1>
-        <a href = "<?php echo base_url('admin/CPrint'); ?>" class="dropdown-item d-flex align-items-center" target="_blank">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Print</span>
-        </a>
-        <div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-								<thead>
-									<tr>
-										<th>No</th>
-										<th>NIM</th>
-										<th>Nama Mahasiswa</th>
-										<th>Prodi</th>
-                    <th>Email</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php 
-                  $no=1;
-                  foreach ($mahasiswa as $row): ?>
-									<tr>
-										<td>
-											<?php echo $no ?>
-										</td>
-										<td>
-											<?php echo $row->NIM ?>
-										</td>
-                    <td>
-											<?php echo $row->namaMahasiswa ?>
-										</td>
-                    <td>
-											<?php echo $row->prodi ?>
-										</td>
-                    <td>
-											<?php echo $row->email ?>
-										</td>
-                    <td>
-                      <a href="">Detail</a>
-										</td>
-									</tr>
-									<?php 
-                  $no++;
-                  endforeach; ?>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Data Mahasiswa</h5>
 
-								</tbody>
-							</table>
-						</div>
-					</div>
+                <a href="<?php echo base_url('admin/CCrudMahasiswa/add'); ?>" class="btn btn-primary">Tambah Data</a>
+                <a href = "<?php echo base_url('admin/CPrint'); ?>" class="btn btn-success" target="_blank">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Print</span>
+                </a>
+
+              <!-- Default Table -->
+              <table class="table">
+                <thead>
+                  <tr>
+                      <th>No</th>
+                      <th>NIM</th>
+                      <th>Nama Mahasiswa</th>
+                      <th>Prodi</th>
+                      <th>Email</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php 
+                    $no=1;
+                    foreach ($mahasiswa as $row): ?>
+                    <tr>
+                      <td>
+                        <?php echo $no ?>
+                      </td>
+                      <td>
+                        <?php echo $row->NIM ?>
+                      </td>
+                      <td>
+                        <?php echo $row->namaMahasiswa ?>
+                      </td>
+                      <td>
+                        <?php echo $row->prodi ?>
+                      </td>
+                      <td>
+                        <?php echo $row->email ?>
+                      </td>
+                      <td>
+                        <a class="btn btn-warning" href="<?php echo base_url('admin/CCrudMahasiswa/edit/'.$row->NIM); ?>">Edit</a>
+                        <a class="btn btn-danger" href="<?php echo base_url('admin/CCrudMahasiswa/delete/'.$row->NIM); ?>">Hapus</a>
+                      </td>
+                    </tr>
+                  <?php 
+                    $no++;
+                    endforeach; ?>
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
       </div>
     </section>
 
@@ -122,18 +105,9 @@
   <!-- END FOOTER -->
   <!-- <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->
 
-  <!-- Vendor JS Files -->
-  <script src="<?php echo base_url() ?>assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="<?php echo base_url() ?>assets/vendor/echarts/echarts.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/vendor/quill/quill.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="<?php echo base_url() ?>assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="<?php echo base_url() ?>assets/js/main.js"></script>
+  <!-- LOAD JAVASCRIPT -->
+  <?php $this->load->view('layouts/script') ?>
+  <!-- END LOAD JAVASCRIPT -->
 
 </body>
 
