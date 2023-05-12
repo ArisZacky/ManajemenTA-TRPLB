@@ -40,9 +40,18 @@
 
     <section class="section dashboard">
       <div class="row">
-      <?php if ($this->session->userdata('level') == 'Mahasiswa') { ?>
-        
-        <?php }?>
+      <?php if ($status == null) { ?>
+        <h5>tes</h5>
+        <?php } else {?>
+          <?php if($status->status == 'Diproses'){?>
+            <h2>DIPROSES</h2>
+          <?php }
+            elseif($status->status == 'Diterima'){?>
+            <h2>DITERIMA</h2>     
+          <?php }
+            elseif($status->status == 'Ditolak'){?>
+            <h2>DITOLAK</h2>
+          <?php }}?>
       </div>
     </section>
 
