@@ -11,7 +11,7 @@ class CPrint extends CI_Controller {
     public function index()
     {
        $data["mahasiswa"] = $this->MMahasiswa->getAll();
-       $pdf = $this->load->view("admin/crudAdmin/print",$data,true);
+       $pdf = $this->load->view("admin/crudMahasiswa/print",$data,true);
       
        $dompdf = new Dompdf();
        $dompdf->set_option('isRemoteEnabled', TRUE);

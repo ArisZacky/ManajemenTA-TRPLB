@@ -8,4 +8,12 @@ class MValidasi extends CI_Model
             redirect('clogin/', 'refresh');
         }
     }
+
+    function validasiAdmin()
+    {
+        if ($this->session->userdata('level') != 'Admin') {
+            echo "<script> alert('Anda Tidak Memiliki Akses!') </script>";
+            redirect('clogin/', 'refresh');
+        }
+    }
 }

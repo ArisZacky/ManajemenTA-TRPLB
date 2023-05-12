@@ -14,7 +14,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link <?php if($title == 'Pengajuan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="index.html">
+        <a class="nav-link <?php if($title == 'Pengajuan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir'); ?>">
           <i class="bi bi-card-list"></i>
           <span>Pengajuan Tugas Akhir</span>
         </a>

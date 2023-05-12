@@ -91,16 +91,16 @@ class CLogin extends CI_Controller
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
 
-                    $sql = "SELECT * FROM admin WHERE email = '" . $emailInput . "'";
-                    $query = $this->db->query($sql);
-                    $admin = $query->row_array();
-                    $NIP = $admin['NIP'];
-                    $namaAdmin = $admin['namaAdmin'];
-                    $prodi =  $admin['prodi'];
+                    // $sql = "SELECT * FROM admin WHERE email = '" . $emailInput . "'";
+                    // $query = $this->db->query($sql);
+                    // $admin = $query->row_array();
+                    // $NIP = $admin['NIP'];
+                    // $namaAdmin = $admin['namaAdmin'];
+                    // $prodi =  $admin['prodi'];
 
-                    $this->session->set_userdata('NIM/NIP', $NIP);
-                    $this->session->set_userdata('nama', $namaAdmin);
-                    $this->session->set_userdata('prodi', $prodi);
+                    // $this->session->set_userdata('NIM/NIP', $NIP);
+                    // $this->session->set_userdata('nama', $namaAdmin);
+                    // $this->session->set_userdata('prodi', $prodi);
 
                     redirect('cdashboard');
                 }

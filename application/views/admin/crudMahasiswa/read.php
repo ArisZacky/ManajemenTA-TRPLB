@@ -84,7 +84,7 @@
                       </td>
                       <td>
                         <a class="btn btn-warning" href="<?php echo base_url('admin/CCrudMahasiswa/edit/'.$row->NIM); ?>">Edit</a>
-                        <a class="btn btn-danger" href="<?php echo base_url('admin/CCrudMahasiswa/delete/'.$row->NIM); ?>">Hapus</a>
+                        <a class="btn btn-danger" onclick="hapusdata('<?php echo $row->NIM ?>')">Hapus</a>
                       </td>
                     </tr>
                   <?php 
@@ -109,6 +109,15 @@
   <?php $this->load->view('layouts/script') ?>
   <!-- END LOAD JAVASCRIPT -->
 
+
+  <script language= "javascript" >
+  function hapusdata(NIM){
+    if(confirm("Apakah yakin menghapus data ini ?")){
+      window.open("<?php echo base_url()?>admin/CCrudMahasiswa/delete/"+NIM,"_self");
+    }
+  }
+
+</script>
 </body>
 
 </html>

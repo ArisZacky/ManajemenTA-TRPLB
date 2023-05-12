@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>Dashboard Admin</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -45,7 +45,7 @@
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2><?php echo $this->session->userdata('nama'); ?></h2>
+              <h2><?php echo $this->session->userdata('email'); ?></h2>
               <h3><?php echo $this->session->userdata('level'); ?></h3>
 
             </div>
@@ -79,7 +79,7 @@
 
                   <h5 class="card-title">Detail Profil</h5>
 
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Nama Lengkap</div>
                     <div class="col-lg-9 col-md-8"><?php echo $this->session->userdata('nama'); ?></div>
                   </div>
@@ -87,11 +87,16 @@
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Prodi</div>
                     <div class="col-lg-9 col-md-8"><?php echo $this->session->userdata('prodi'); ?></div>
-                  </div>
+                  </div> -->
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
                     <div class="col-lg-9 col-md-8"><?php echo $this->session->userdata('email'); ?></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Email</div>
+                    <div class="col-lg-9 col-md-8"><?php echo $this->session->userdata('level'); ?></div>
                   </div>
 
                 </div>
