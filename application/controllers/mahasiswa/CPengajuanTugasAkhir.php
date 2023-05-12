@@ -16,8 +16,10 @@ class CPengajuanTugasAkhir extends CI_Controller
     }
 
     public function index()
-    {   $data['title'] = 'Pengajuan Tugas Akhir';
-        $data["status"] = $this->MPengajuanTugasAkhir->getByNIM($NIM);
+    {   
+        $data['title'] = 'Pengajuan Tugas Akhir';
+        $data['NIM'] = $this->session->userdata('NIM/NIP');
+        $data["status"] = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);        
         $this->load->view("mahasiswa/pengajuanTugasAkhir/index", $data);
     }
 
