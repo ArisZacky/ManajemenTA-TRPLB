@@ -29,29 +29,217 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Pengajuan Tugas Akhir</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item active">PengajuanTugasAkhir</li>
+          <li class="breadcrumb-item active">Pengajuan Tugas Akhir</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
       <div class="row">
+
       <?php if ($status == null) { ?>
-        <h5>tes</h5>
-        <?php } else {?>
-          <?php if($status->status == 'Diproses'){?>
-            <h2>DIPROSES</h2>
-          <?php }
-            elseif($status->status == 'Diterima'){?>
-            <h2>DITERIMA</h2>     
-          <?php }
-            elseif($status->status == 'Ditolak'){?>
-            <h2>DITOLAK</h2>
-          <?php }}?>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Dosen Pembimbing</h5>
+              <!-- Default Table -->
+              <div class="row">
+                <div class="col">
+                <h5>Dosen Pembimbing 1</h5>
+                <table>
+                    <tr>
+                      <td>NIP</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Nama Dosen</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                </table>
+                </div>
+                <div class="col">
+                <h5>Dosen Pembimbing 2</h5>
+                <table>
+                    <tr>
+                      <td>NIP</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Nama Dosen</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                </table>
+                </div>
+              </div>             
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mahasiswa</h5>
+
+              <!-- Default Table -->
+              <table>
+                  <tr>
+                    <td>Nama Mahasiswa</td>
+                    <td>:</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>NIM</td>
+                    <td>:</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Prodi</td>
+                    <td>:</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>:</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Judul Proposal</td>
+                    <td>:</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Berkas Proposal</td>
+                    <td>:</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Abstrak</td>
+                    <td>:</td>
+                    <td></td>
+                  </tr>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>  
+          <a href="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir/add'); ?>" class="btn btn-primary">Buat Pengajuan Tugas Akhir</a>
+        <?php } else {?>        
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Dosen Pembimbing</h5>
+                <!-- Default Table -->
+                <div class="row">
+                  <div class="col">
+                  <h5>Dosen Pembimbing 1</h5>
+                  <?php foreach($output as $outputs):?>
+                  <table>
+                      <tr>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td><?php echo $outputs->NIP1?></td>
+                      </tr>
+                      <tr>
+                        <td>Nama Dosen</td>
+                        <td>:</td>
+                        <td><?php echo $outputs->namaDosen1?></td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td>:</td>
+                        <td><?php echo $outputs->emailDosen1?></td>
+                      </tr>
+                  </table>
+                  </div>
+                  <div class="col">
+                  <h5>Dosen Pembimbing 2</h5>
+                  <table>
+                      <tr>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $outputs->NIP2;}?> </td>
+                      </tr>
+                      <tr>
+                        <td>Nama Dosen</td>
+                        <td>:</td>
+                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $outputs->namaDosen2;}?></td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td>:</td>
+                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $outputs->emailDosen2;}?></td>
+                      </tr>
+                  </table>
+                  </div>
+                </div>             
+                <!-- End Default Table Example -->
+              </div>
+            </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mahasiswa</h5>
+
+              <!-- Default Table -->
+              <table>
+                  <tr>
+                    <td>Nama Mahasiswa</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->namaMahasiswa?></td>
+                  </tr>
+                  <tr>
+                    <td>NIM</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->NIM?></td>
+                  </tr>
+                  <tr>
+                    <td>Prodi</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->prodi?></td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->email?></td>
+                  </tr>
+                  <tr>
+                    <td>Judul Proposal</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->judulProposal?></td>
+                  </tr>
+                  <tr>
+                    <td>Berkas Proposal</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->berkasProposal?></td>
+                  </tr>
+                  <tr>
+                    <td>Abstrak</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->abstrak?></td>
+                  </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td>:</td>
+                    <td><?php echo $outputs->status?></td>
+                  </tr>
+              </table>
+              <?php endforeach;?>
+              <!-- End Default Table Example -->
+            </div>
+          </div>  
+          <?php }?>
       </div>
     </section>
 
