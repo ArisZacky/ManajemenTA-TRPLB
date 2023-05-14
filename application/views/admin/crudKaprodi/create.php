@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="NIP" class="form-label">NIP</label>
-                  <input type="text" class="form-control" id="NIP" name="NIP">
+                  <input type="text" class="form-control" id="NIP" name="NIP" maxlength=18>
                 </div>
                 <div class="col-md-6">
                   <label for="prodi" class="form-label">Prodi</label>

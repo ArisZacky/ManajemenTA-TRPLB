@@ -45,10 +45,10 @@
               <h5 class="card-title">Data Kaprodi</h5>
 
                 <a href="<?php echo base_url('admin/CCrudKaprodi/add'); ?>" class="btn btn-primary">Tambah Data</a>
-                <a href = "<?php echo base_url('admin/CPrint'); ?>" class="btn btn-success" target="_blank">
+                <!-- <a href = "<?php echo base_url('admin/CPrint'); ?>" class="btn btn-success" target="_blank">
                   <i class="bi bi-box-arrow-right"></i>
                   <span>Print</span>
-                </a>
+                </a> -->
 
               <!-- Default Table -->
               <table class="table">

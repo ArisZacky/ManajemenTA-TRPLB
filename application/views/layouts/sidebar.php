@@ -172,12 +172,6 @@
               <span>CRUD Kaprodi</span>
             </a>
           </li>
-          <li>
-            <a class="<?php if($title == 'CRUD Admin'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('admin/ccrudadmin'); ?>">
-              <i class="bi bi-circle"></i>
-              <span>CRUD Admin</span>
-            </a>
-          </li>
         </ul>
       </li><!-- End Master Data Nav -->
 

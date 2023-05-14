@@ -77,10 +77,12 @@ class CLogin extends CI_Controller
                     $kaprodi = $query->row_array();
                     $NIP = $kaprodi['NIP'];
                     $namaKaprodi = $kaprodi['namaKaprodi'];
+                    $prodi = $kaprodi['prodi'];
                     $tahunJabatan =  $kaprodi['tahunJabatan'];
 
                     $this->session->set_userdata('NIM/NIP', $NIP);
                     $this->session->set_userdata('nama', $namaKaprodi);
+                    $this->session->set_userdata('prodi', $prodi);
                     $this->session->set_userdata('tahunJabatan', $tahunJabatan);
 
                     redirect('cdashboard');
