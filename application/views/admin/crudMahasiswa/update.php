@@ -47,7 +47,7 @@
         <div class="card">
             <div class="card-body">
               <h5 class="card-title">Edit Mahasiswa</h5>
-
+              
               <!-- Multi Columns Form -->
               <form name="createMahasiswa" class="row g-3" method="POST" action="" enctype="multipart/form-data">
                 <div class="col-md-12">

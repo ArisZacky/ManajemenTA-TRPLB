@@ -33,7 +33,8 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item active">Pengajuan Tugas Akhir</li>
+          <li class="breadcrumb-item">Pengajuan Tugas Akhir</li>
+          <li class="breadcrumb-item active">Belum Diterima</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -55,11 +56,13 @@
                       <th>Pembimbing 1</th>
                       <th>Pembimbing 2</th>
                       <th>Berkas Proposal</th>
-                      <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php 
+                    if(empty($pengajuanTugasAkhir)){
+                        echo "";
+                    }else{
                     $no=1;
                     foreach ($pengajuanTugasAkhir as $row): ?>
                     <tr>
@@ -76,21 +79,19 @@
                         <?php echo $row->abstrak ?>
                       </td>
                       <td>
-                        <?php echo $row->pembimbing1 ?>
+                        <?php echo $row->namaDosen1 ?>
                       </td>
                       <td>
-                        <?php echo $row->pembimbing2 ?>
+                        <?php echo $row->namaDosen2 ?>
                       </td>
                       <td>
                         <a class="btn btn-primary" href="">Download Berkas</a>
                       </td>
-                      <td>
-                        <a class="btn btn-success" href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir/edit/'.$row->NIM); ?>">Proses</a>
-                      </td>
                     </tr>
                   <?php 
                     $no++;
-                    endforeach; ?>
+                    endforeach;
+                 } ?>
                 </tbody>
               </table>
               <!-- End Default Table Example -->

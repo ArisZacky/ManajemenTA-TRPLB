@@ -64,6 +64,9 @@
                 </thead>
                 <tbody>
                   <?php 
+                    if(empty($mahasiswa)){
+                      echo "";
+                    }else{
                     $no=1;
                     foreach ($mahasiswa as $row): ?>
                     <tr>
@@ -89,7 +92,8 @@
                     </tr>
                   <?php 
                     $no++;
-                    endforeach; ?>
+                    endforeach; 
+                  }?>
                 </tbody>
               </table>
               <!-- End Default Table Example -->

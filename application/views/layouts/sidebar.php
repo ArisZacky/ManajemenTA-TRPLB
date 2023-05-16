@@ -90,10 +90,23 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link <?php if($title == 'Pengajuan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir'); ?>" href="<?php echo base_url('cdashboard'); ?>">
-          <i class="bi bi-card-list"></i>
-          <span>Pengajuan Tugas Akhir</span>
+        <a class="nav-link collapsed" data-bs-target="#tugasAkhir-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Pengajuan Tugas Akhir</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="tugasAkhir-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Pengajuan Tugas Akhir Belum Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanTugasAkhir/belumDiterima'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Belum Diterima</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Pengajuan Tugas Akhir Sudah Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanTugasAkhir/sudahDiterima'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Sudah Diterima</span>
+            </a>
+          </li>
+        </ul>
       </li><!-- End Pengajuan Tugas Akhir Nav -->
 
       <li class="nav-item">

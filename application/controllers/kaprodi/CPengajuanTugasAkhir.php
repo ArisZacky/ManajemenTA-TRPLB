@@ -16,18 +16,42 @@ class CPengajuanTugasAkhir extends CI_Controller
         $this->load->library("form_validation");
     }
 
-    public function index()
+    public function belumDiterima()
     {         
-        $data['title'] = 'Pengajuan Tugas Akhir';
-        $data["pengajuanTugasAkhir"] = $this->MPengajuanTugasAkhir->getAll();
-        // foreach($data["pengajuanTugasAkhir"] as $namaPembimbing){
-        //     $NIP1 = $namaPembimbing->pembimbing1;
-        // }
-        // $data["pembimbing1"] = $this->MDosen->getById($NIP1);
+        $data['title'] = 'Pengajuan Tugas Akhir Belum Diterima';
+        $data["pengajuanTugasAkhir"] = $this->MPengajuanTugasAkhir->outputIndexKaprodiBelumDiterima();
+        $this->load->view("kaprodi/pengajuanTugasAkhir/belumDiterima", $data);
+    }
 
-        // var_dump($NIP1);
+    public function sudahDiterima()
+    {         
+        $data['title'] = 'Pengajuan Tugas Akhir Sudah Diterima';
+        $data["pengajuanTugasAkhir"] = $this->MPengajuanTugasAkhir->outputIndexKaprodiSudahDiterima();
+        $this->load->view("kaprodi/pengajuanTugasAkhir/sudahDiterima", $data);
+    }
+
+    public function proses($idPengajuan)
+    {
+        $data['title'] = "Approve Pengajuan";
+        if(!isset($idPengajuan)) redirect('kaprodi/CPengajuanTugasAkhir/belumDiterima');
+        $data['dosen'] = $this->MDosen->getAll();
+        $pengajuan = $this->MPengajuanTugasAkhir;
+        $validation = $this->form_validation;
+        $validation->set_rules($pengajuan->rules());
+
+        if($validation->run()){
+            $pengajuan->update();
+            echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
+            <h3>Selamat</h3>
+            <p>Data Berhasil Diedit!</p>');
+        }
+        
+        $data["pengajuan"] = $pengajuan->outputProsesKaprodi($idPengajuan);
+        // var_dump($data["pengajuan"]);
         // die();
-        $this->load->view("kaprodi/pengajuanTugasAkhir/index", $data);
+        if(!$data["pengajuan"]) show_404();
+
+        $this->load->view("kaprodi/pengajuanTugasAkhir/proses", $data);
     }
 
     public function add()
