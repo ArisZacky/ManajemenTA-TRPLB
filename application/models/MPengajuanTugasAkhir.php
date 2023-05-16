@@ -107,6 +107,34 @@ class MPengajuanTugasAkhir extends CI_Model
         return $hasil;
     }
     
+    public function outputIndexKaprodi($NIM, $NIP1)
+    {
+        $this->db->select("*, dosen.namaDosen");
+        $this->db->from('pengajuanta');
+        $this->db->join('dosen', 'pengajuanta.pembimbing1 = dosen.NIP');
+        // $this->db->where('dosen1.NIP', $NIP1);    
+        // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
+        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        // dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'
+        // FROM pengajuanta
+        // INNER JOIN mahasiswa as mahasiswa1 ON pengajuanta.NIM = mahasiswa1.NIM
+        // INNER JOIN dosen as dosen1  ON pengajuanta.pembimbing1= dosen1.NIP
+
+        // WHERE pengajuanta.NIM = '".$NIM."' AND dosen1.NIP = '".$NIP1."';
+
+        $query = $this->db->get();
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $data)
+            {
+                $hasil[]=$data;	
+            }
+        }else{
+            $hasil = '';
+        }
+        return $hasil;
+    }
+    
     public function save()
     {
         $post = $this->input->post();
@@ -132,21 +160,21 @@ class MPengajuanTugasAkhir extends CI_Model
         return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
     }
 
-    public function kaprodiTerima()
-    {
-        $post = $this->input->post();
-        $this->idPengajuanTA = $post["idPengajuanTA"];
-        $this->status = "Diterima";
-        return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
-    }
+    // public function kaprodiTerima()
+    // {
+    //     $post = $this->input->post();
+    //     $this->idPengajuanTA = $post["idPengajuanTA"];
+    //     $this->status = "Diterima";
+    //     return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
+    // }
 
-    public function kaprodiTolak()
-    {
-        $post = $this->input->post();
-        $this->idPengajuanTA = $post["idPengajuanTA"];
-        $this->status = "Ditolak";
-        return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
-    }
+    // public function kaprodiTolak()
+    // {
+    //     $post = $this->input->post();
+    //     $this->idPengajuanTA = $post["idPengajuanTA"];
+    //     $this->status = "Ditolak";
+    //     return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
+    // }
 
     public function delete($idPengajuanTA)
     {

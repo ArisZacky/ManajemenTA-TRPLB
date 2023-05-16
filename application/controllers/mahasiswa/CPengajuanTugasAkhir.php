@@ -76,50 +76,17 @@ class CPengajuanTugasAkhir extends CI_Controller
             echo "<script> alert('Tugas Akhir Berhasil Diajukan') </script>";
             redirect($url, 'refresh');
         }
-        
-        // $data['title'] = 'Pengajuan Tugas Akhir';
-        // $data['dosen'] = $this->MDosen->getAll();
-        // $pengajuanTugasAkhir = $this->MPengajuanTugasAkhir;
-        // $validation = $this->form_validation;
-        // $validation->set_rules($pengajuanTugasAkhir->rules());
 
-        // if ($validation->run()) {
-        //     $pengajuanTugasAkhir->save();
-        //     $url = base_url('mahasiswa/CPengajuanTugasAkhir');
-        //     echo "<script> alert('Proposal Berhasil Diajukan') </script>";
-        //     redirect($url, 'refresh');
-        // }
         $this->load->view("mahasiswa/pengajuanTugasAkhir/create", $data);
     }
 
-    // public function edit($NIP = null)
-    // {
-    //     $data['title'] = 'CRUD Kaprodi';
-    //     if (!isset($NIP)) redirect('mahasiswa/CCrudKaprodi');
-       
-    //     $kaprodi = $this->MKaprodi;
-    //     $validation = $this->form_validation;
-    //     $validation->set_rules($kaprodi->rules());
+    public function edit($NIP = null)
+    {
 
-    //     if ($validation->run()) {
-    //         $kaprodi->update();
-    //         echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-    //         <h3>Selamat</h3>
-    //         <p>Data Berhasil Diedit!</p>');
-    //     }
+    }
 
-    //     $data["kaprodi"] = $kaprodi->getById($NIP);
-    //     if (!$data["kaprodi"]) show_404();
-        
-    //     $this->load->view("admin/pengajuanTugasAkhir/update", $data);
-    // }
+    public function delete($NIP=null)
+    {
 
-    // public function delete($NIP=null)
-    // {
-    //     if (!isset($NIP)) show_404();
-            
-    //     if ($this->MKaprodi->delete($NIP)) {
-    //         redirect(base_url('admin/CCrudKaprodi'));
-    //     }
-    // }
+    }
 }

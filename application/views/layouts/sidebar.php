@@ -90,7 +90,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?php echo base_url('cdashboard'); ?>">
+        <a class="nav-link <?php if($title == 'Pengajuan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir'); ?>" href="<?php echo base_url('cdashboard'); ?>">
           <i class="bi bi-card-list"></i>
           <span>Pengajuan Tugas Akhir</span>
         </a>

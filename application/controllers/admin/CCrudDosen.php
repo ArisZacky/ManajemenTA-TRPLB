@@ -16,7 +16,8 @@ class CCrudDosen extends CI_Controller
     }
 
     public function index()
-    {   $data['title'] = 'CRUD Dosen';
+    {   
+        $data['title'] = 'CRUD Dosen';
         $data["dosen"] = $this->MDosen->getAll();
         $this->load->view("admin/crudDosen/read", $data);
     }

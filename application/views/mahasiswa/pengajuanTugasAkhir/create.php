@@ -90,7 +90,7 @@
                     <select class="form-select" aria-label="Default select example" name="pembimbing1" id="pembimbing1">
                         <option value="">Pilih Dosen Pembimbing 1</option>
                     <?php foreach($dosen as $row):?>
-                        <option value="<?php echo $row->NIP; ?>"><?php echo $row->namaDosen?></option>
+                        <option value="<?php echo $row->NIP; ?>"><?php echo $row->namaDosen?> - <?php echo $row->NIP?></option>
                     <?php endforeach;?>
                     </select>                    
                   </div>
