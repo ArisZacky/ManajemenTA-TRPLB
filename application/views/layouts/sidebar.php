@@ -21,7 +21,7 @@
       </li><!-- End Pengajuan Tugas Akhir Nav -->
 
       <li class="nav-item">
-        <a class="nav-link <?php if($title == 'Bimbingan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('cdashboard'); ?>">
+        <a class="nav-link <?php if($title == 'Bimbingan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CBimbingan'); ?>">
           <i class="bi bi-file-earmark-text"></i>
           <span>Bimbingan Tugas Akhir</span>
         </a>

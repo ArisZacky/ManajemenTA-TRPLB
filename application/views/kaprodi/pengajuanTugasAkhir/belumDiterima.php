@@ -41,6 +41,9 @@
 
     <section class="section dashboard">
       <div class="row">
+      <div class="w3-panel w3-blue w3-display-container">
+            <?php echo $this->session->flashdata('success'); ?>
+      </div>
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Data Pengajuan Tugas Akhir</h5>

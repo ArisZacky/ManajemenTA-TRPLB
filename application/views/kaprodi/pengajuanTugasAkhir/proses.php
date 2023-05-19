@@ -41,15 +41,15 @@
 
     <section class="section proses approve">
       <div class="row">
-      <div class="w3-panel w3-blue w3-display-container">
-            <?php echo $this->session->flashdata('success'); ?>
-      </div>
       <?php var_dump($pengajuan)?>
         <div class="card">
             <div class="card-body">
               <h5 class="card-title">Approve Proposal</h5>
               <!-- Multi Columns Form -->
-              <form name="approveProposal" class="row g-3" method="POST" action="" enctype="multipart/form-data">
+              <form name="approveProposal" id="approveProposal" class="row g-3" method="POST" action="" enctype="multipart/form-data">
+
+                <input type="hidden" class="form-control" id="idPengajuanTA" name="idPengajuanTA" value="<?php echo $pengajuan->idPengajuanTA; ?>" readonly>
+
                 <div class="col-md-12">
                   <label for="NIM" class="form-label">NIM</label>
                   <input type="text" class="form-control" id="NIM" name="NIM" value="<?php echo $pengajuan->NIM; ?>" readonly>
@@ -63,8 +63,8 @@
                   <input type="text" class="form-control" id="judulProposal" name="judulProposal" value="<?php echo $pengajuan->judulProposal; ?>">
                 </div>
                 <div class="col-12">
-                  <label for="email" class="form-label">Abstrak</label>
-                  <div class="col-sm-10">
+                  <label for="abstrak" class="form-label">Abstrak</label>
+                  <div class="col-md-12">
                   <textarea class="form-control" style="height: 100px" name="abstrak" id="abstrak" readonly><?php echo $pengajuan->abstrak; ?></textarea>
                   </div>
                 </div>
@@ -77,9 +77,9 @@
                   <a href=""><?php echo $pengajuan->berkasProposal; ?></a>
                 </div>
                 <div class="row mb-3">
-                  <label for="pembimbing1" class="col-sm-2 col-form-label">Dosen Pembimbing 2</label>
+                  <label for="pembimbing2" class="col-sm-2 col-form-label">Dosen Pembimbing 2</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="pembimbing1" id="pembimbing1">
+                    <select class="form-select" aria-label="Default select example" name="pembimbing2" id="pembimbing2">
                         <option value="">-- Pilih Dosen Pembimbing 2 --</option>
                     <?php foreach($dosen as $row):?>
                         <option value="<?php echo $row->NIP; ?>"><?php echo $row->namaDosen?> - <?php echo $row->NIP?></option>
@@ -90,17 +90,42 @@
                 <div class="row mb-3">
                   <label for="pembimbing1" class="col-sm-2 col-form-label">Status</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="pembimbing1" id="pembimbing1">
+                    <select class="form-select" aria-label="Default select example" name="status" id="status"  onchange="showHide(this.value)">
                         <option value="">-- Pilih Status --</option>
-                        <option value="Diterima">Diterima</option>
-                        <option value="Diterima Dengan Catatan">Diterima dengan Catatan</option>
+                        <option value="Diterima" id="Diterima">Diterima</option>
+                        <option value="Diterima Dengan Catatan" id="Diterima Dengan Catatan">Diterima dengan Catatan</option>
                     </select>                    
                   </div>
                 </div>
+                <div class="col-12">
+                  <!-- <label for="catatan" class="form-label"></label> -->
+                  <div class="col-md-12">
+                  <textarea class="form-control" style="display:none;height:100px" value="" name="catatan" id="catatan"></textarea>
+                  </div>
+                </div>
                 <div class="text-center">
-                  <input class="btn btn-primary" type="submit" name="submit" value="Submit" />
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-submit">
+                    Simpan
+                  </button>
+                  <div class="modal fade" id="confirm-submit" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Terima Proposal</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Apakah anda yakin untuk menerima proposal ini?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <input type="submit" id="submit" class="btn btn-primary" value="Simpan"></input>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!-- End Vertically centered Modal-->
                   <input class="btn btn-secondary" type="reset" value="Reset">
-                  <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                  <!-- <button type="submit" class="btn btn-primary" >Submit</button> -->
                   <!-- <button type="reset" class="btn btn-secondary">Reset</button> -->
                 </div>
               </form><!-- End Multi Columns Form -->
@@ -111,7 +136,25 @@
     </section>
 
   </main><!-- End #main -->
+  <script>
+    $('#submit').click(function(){
+      /* when the submit button in the modal is clicked, submit the form */
+      $('#approveProposal').submit();
+    });
 
+    function showHide(elm) {
+
+
+      if (elm == "Diterima Dengan Catatan") {
+      //display textbox
+        document.getElementById('catatan').style.display = "block";
+      } else {
+      //hide textbox
+        document.getElementById('catatan').style.display = "none";
+      }
+
+    }
+  </script>
   <!-- FOOTER -->
   <?php $this->load->view('layouts/footer') ?>
   <!-- END FOOTER -->

@@ -21,8 +21,29 @@ class MPengajuanTugasAkhir extends CI_Model
         'label' => 'pembimbing1',
         'rules' => 'required'],
 
+        ['field' => 'pembimbing2',
+        'label' => 'pembimbing2'],
+
         ['field' => 'berkasProposal',
         'label' => 'berkasProposal',
+        'rules' => 'required'],
+
+        ['field' => 'status',
+        'label' => 'status',
+        'rules' => 'required'],
+
+    ];
+}
+
+public function rulesKaprodi()
+{
+    return [
+        ['field' => 'idPengajuanTA',
+        'label' => 'idPengajuanTA',
+        'rules' => 'required'],
+
+        ['field' => 'pembimbing2',
+        'label' => 'pembimbing2',
         'rules' => 'required'],
 
         ['field' => 'status',
@@ -109,7 +130,7 @@ class MPengajuanTugasAkhir extends CI_Model
     
     public function outputIndexKaprodiBelumDiterima()
     {
-        $this->db->select("idPengajuanTA, NIM, judulProposal, abstrak, pembimbing1, pembimbing2, berkasProposal, status,
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, pembimbing1, pembimbing2, berkasProposal, status,
         dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'");
         $this->db->from('pengajuanta');
         $this->db->join('mahasiswa as mahasiswa1', 'pengajuanta.NIM = mahasiswa1.NIM');
@@ -139,7 +160,7 @@ class MPengajuanTugasAkhir extends CI_Model
     }
     public function outputIndexKaprodiSudahDiterima()
     {
-        $this->db->select("idPengajuanTA, NIM, judulProposal, abstrak, pembimbing1, pembimbing2, berkasProposal, status,
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, pembimbing1, pembimbing2, berkasProposal, status,
         dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1',
         dosen2.NIP as 'NIP2', dosen2.namaDosen as 'namaDosen2', dosen2.email as 'emailDosen2'");
         $this->db->from('pengajuanta');
@@ -219,11 +240,12 @@ class MPengajuanTugasAkhir extends CI_Model
     {
         $post = $this->input->post();
         $this->idPengajuanTA = $post["idPengajuanTA"];
-        $this->NIM = $post["NIM"];
-        $this->judulProposal = $post["judulProposal"];
-        $this->prodi = $post["abstrak"];
-        $this->pembimbing1 = $post["pembimbing1"];
-        $this->berkasProposal = $post["berkasProposal"];
+        // $this->NIM = $post["NIM"];
+        // $this->judulProposal = $post["judulProposal"];
+        // $this->prodi = $post["abstrak"];
+        // $this->pembimbing1 = $post["pembimbing1"];
+        $this->pembimbing2 = $post["pembimbing2"];
+        // $this->berkasProposal = $post["berkasProposal"];
         $this->status = $post["status"];
         return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
     }

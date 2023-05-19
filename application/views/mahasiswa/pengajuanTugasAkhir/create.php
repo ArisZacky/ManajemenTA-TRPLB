@@ -75,19 +75,19 @@
                 <div class="row mb-3">
                   <label for="judulProposal" class="col-sm-2 col-form-label">Judul Proposal</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="judulProposal" id="judulProposal">
+                    <input type="text" class="form-control" name="judulProposal" id="judulProposal" required>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="abstrak" class="col-sm-2 col-form-label">Abstrak</label>
                   <div class="col-sm-10">
-                  <textarea class="form-control" style="height: 100px" name="abstrak" id="abstrak"></textarea>
+                  <textarea class="form-control" style="height: 100px" name="abstrak" id="abstrak" required></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="pembimbing1" class="col-sm-2 col-form-label">Dosen Pembimbing 1</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="pembimbing1" id="pembimbing1">
+                    <select class="form-select" aria-label="Default select example" name="pembimbing1" id="pembimbing1" required>
                         <option value="">Pilih Dosen Pembimbing 1</option>
                     <?php foreach($dosen as $row):?>
                         <option value="<?php echo $row->NIP; ?>"><?php echo $row->namaDosen?> - <?php echo $row->NIP?></option>
@@ -104,14 +104,14 @@
                 <div class="row mb-3">
                   <label for="berkasProposal" class="col-sm-2 col-form-label">Berkas Proposal</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile" name="berkasProposal" id="berkasProposal">
+                    <input class="form-control" type="file" id="formFile" name="berkasProposal" id="berkasProposal" required>
                   </div>
                 </div>
                 <input type="hidden" name="status" id="status" value="Diproses">
                 
                 <div class="row mb-3">
                     <div class="text-center">
-                        <input class="btn btn-primary" type="submit" name="submit" value="Ajukan Proposal" />
+                        <input class="btn btn-primary" type="submit" name="submit" value="Ajukan Proposal" onClick="return confirm('Apakah data-data sudah benar?')" />
                         <input class="btn btn-secondary" type="reset" value="Reset">
                     </div>
                 </div>
@@ -133,16 +133,6 @@
   <!-- LOAD JAVASCRIPT -->
   <?php $this->load->view('layouts/script') ?>
   <!-- END LOAD JAVASCRIPT -->
-
-
-  <script language= "javascript" >
-  function hapusdata(NIP){
-    if(confirm("Apakah yakin menghapus data ini ?")){
-      window.open("<?php echo base_url()?>admin/CCrudDosen/delete/"+NIP,"_self");
-    }
-  }
-
-</script>
 </body>
 
 </html>

@@ -127,12 +127,15 @@
                     <td>:</td>
                     <td></td>
                   </tr>
-                  <tr>
-                    <td>Abstrak</td>
-                    <td>:</td>
-                    <td></td>
-                  </tr>
               </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>  
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Abstrak</h5>
+              <p></p>
               <!-- End Default Table Example -->
             </div>
           </div>  
@@ -225,20 +228,24 @@
                     <td><?php echo $outputs->berkasProposal?></td>
                   </tr>
                   <tr>
-                    <td>Abstrak</td>
-                    <td>:</td>
-                    <td><?php echo $outputs->abstrak?></td>
-                  </tr>
-                  <tr>
                     <td>Status</td>
                     <td>:</td>
                     <td><?php echo $outputs->status?></td>
                   </tr>
               </table>
-              <?php endforeach;?>
+              
               <!-- End Default Table Example -->
             </div>
           </div>  
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Abstrak</h5>
+              <p><?php echo $outputs->abstrak?></p>
+              <!-- End Default Table Example -->
+            </div>
+          </div>  
+          <?php endforeach;?>
           <?php }?>
       </div>
     </section>

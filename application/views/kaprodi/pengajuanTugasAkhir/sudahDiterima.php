@@ -34,7 +34,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
           <li class="breadcrumb-item">Pengajuan Tugas Akhir</li>
-          <li class="breadcrumb-item active">Belum Diterima</li>
+          <li class="breadcrumb-item active">Sudah Diterima</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
