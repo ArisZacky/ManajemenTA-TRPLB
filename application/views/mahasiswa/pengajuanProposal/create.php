@@ -46,8 +46,8 @@
               <h5 class="card-title">Buat Pengajuan Tugas Akhir</h5>
 
               <!-- General Form Elements -->
-              <?php echo form_open_multipart('mahasiswa/CPengajuanTugasAkhir/add');?>
-              <!-- <form name="createPengajuanTugasAkhir" method="POST" action="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir/add'); ?>" > -->
+              <?php echo form_open_multipart('mahasiswa/CPengajuanProposal/add');?>
+              <!-- <form name="createPengajuanTugasAkhir" method="POST" action="<?php echo base_url('mahasiswa/CPengajuanProposal/add'); ?>" > -->
                 <div class="row mb-3">
                   <label for="namaMahasiswa" class="col-sm-2 col-form-label">Nama Mahasiswa</label>
                   <div class="col-sm-10">
@@ -79,9 +79,15 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="abstrak" class="col-sm-2 col-form-label">Abstrak</label>
+                  <label for="fileProposal" class="col-sm-2 col-form-label">File Proposal</label>
                   <div class="col-sm-10">
-                  <textarea class="form-control" style="height: 100px" name="abstrak" id="abstrak" required></textarea>
+                    <input class="form-control" type="file" id="formFile" name="fileProposal" id="fileProposal" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="suratKetersediaanPembimbing1" class="col-sm-2 col-form-label">Surat Ketersediaan Pembimbing 1</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile" name="suratKetersediaanPembimbing1" id="suratKetersediaanPembimbing1" required>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -95,16 +101,14 @@
                     </select>                    
                   </div>
                 </div>
-                <!-- <div class="row mb-3">
-                  <label for="judulProposal" class="col-sm-2 col-form-label">Berkas Proposal</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="berkasProposal" id="berkasProposal">
-                  </div>
-                </div> -->
                 <div class="row mb-3">
-                  <label for="berkasProposal" class="col-sm-2 col-form-label">Berkas Proposal</label>
+                  <label for="pembimbing1" class="col-sm-2 col-form-label">Model Proposal</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile" name="berkasProposal" id="berkasProposal" required>
+                    <select class="form-select" aria-label="Default select example" name="modelProposal" id="modelProposal">
+                        <option value="">-- Pilih Model Proposal --</option>
+                        <option value="Analisa Sistem" id="Analisa Sistem">Analisa Sistem</option>
+                        <option value="Pembuatan Alat" id="Pembuatan Alat">Pembuatan Alat</option>
+                    </select>                    
                   </div>
                 </div>
                 <input type="hidden" name="status" id="status" value="Diproses">

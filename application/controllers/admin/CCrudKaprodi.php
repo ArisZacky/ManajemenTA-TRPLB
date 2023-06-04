@@ -12,6 +12,7 @@ class CCrudKaprodi extends CI_Controller
             redirect($url, 'refresh');
         };
         $this->load->model("MKaprodi");
+        $this->load->model("MLogin");
         $this->load->library("form_validation");
     }
 
@@ -25,11 +26,15 @@ class CCrudKaprodi extends CI_Controller
     {
         $data['title'] = 'CRUD Kaprodi';
         $kaprodi = $this->MKaprodi;
+        $login = $this->MLogin;
         $validation = $this->form_validation;
         $validation->set_rules($kaprodi->rules());
 
         if ($validation->run()) {
             $kaprodi->save();
+            $pwd = $kaprodi->NIP;
+            $level = "Kaprodi";
+            $login->save($pwd, $level);
             echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
             <h3>Selamat</h3>
             <p>Data Berhasil Ditambahkan!</p>');

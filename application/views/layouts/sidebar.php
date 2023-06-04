@@ -14,6 +14,13 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link <?php if($title == 'Pengajuan Proposal'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CPengajuanProposal'); ?>">
+          <i class="bi bi-card-list"></i>
+          <span>Proposal</span>
+        </a>
+      </li><!-- End Pengajuan Tugas Akhir Nav -->
+      
+      <li class="nav-item">
         <a class="nav-link <?php if($title == 'Pengajuan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir'); ?>">
           <i class="bi bi-card-list"></i>
           <span>Pengajuan Tugas Akhir</span>
