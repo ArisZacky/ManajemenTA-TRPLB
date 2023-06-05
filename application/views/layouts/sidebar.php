@@ -97,6 +97,26 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#proposal-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Pengajuan Proposal</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="proposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Pengajuan Proposal Belum Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanProposal/belumDiterima'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Belum Diterima</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Pengajuan Proposal Sudah Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanProposal/sudahDiterima'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Sudah Diterima</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Pengajuan Tugas Akhir Nav -->    
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tugasAkhir-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Pengajuan Tugas Akhir</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>

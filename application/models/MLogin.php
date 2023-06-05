@@ -3,7 +3,8 @@ class MLogin extends CI_Model
 {
     function auth_email($email)
     {
-        $result = $this->db->query("SELECT * FROM login WHERE email='$email' LIMIT 1");
+        // $result = $this->db->query("SELECT * FROM login WHERE email='$email' LIMIT 1");
+        $result = $this->db->get_where('login', ["email" => $email], 1);
         return $result;
     }
     function save($password, $level){

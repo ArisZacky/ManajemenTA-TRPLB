@@ -167,6 +167,11 @@
               <!-- Default Table -->
               <table>
                     <tr>
+                        <td>Status Registrasi</td>
+                        <td>:</td>
+                        <td><?php echo $outputs->status?></b></td>
+                    </tr>
+                    <tr>
                         <td>Nama Mahasiswa</td>
                         <td>:</td>
                         <td><?php echo $outputs->namaMahasiswa?></td>
@@ -194,13 +199,19 @@
                     <tr>
                         <td>Berkas Proposal</td>
                         <td>:</td>
-                        <td><?php echo $outputs->berkasProposal?></td>
+                        <td><a href="<?php echo base_url('mahasiswa/CPengajuanProposal/downloadFileProposal/'.$outputs->NIM); ?>" target="__blank"><?php echo $outputs->fileProposal?></a></td>
                     </tr>
                     <tr>
-                        <td>Status</td>
+                        <td>Surat Ketersediaan Pembimbing 1</td>
                         <td>:</td>
-                        <td><?php echo $outputs->status?></td>
+                        <td><a href="<?php echo base_url('mahasiswa/CPengajuanProposal/downloadSuratKetersediaanPembimbing1/'.$outputs->NIM); ?>" target="__blank"><?php echo $outputs->suratKetersediaanPembimbing1?></a></td>
                     </tr>
+                    <tr>
+                        <td>Model Proposal</td>
+                        <td>:</td>
+                        <td><?php echo $outputs->modelProposal?></td>
+                    </tr>
+
               </table>
               
               <!-- End Default Table Example -->

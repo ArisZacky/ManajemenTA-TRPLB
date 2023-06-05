@@ -13,6 +13,7 @@ class CPengajuanProposal extends CI_Controller
         };
         $this->load->model(["MPengajuanProposal","MDosen"]);
         $this->load->library("form_validation");
+        $this->load->helper(['url','download']);
     }
 
     public function index()
@@ -20,10 +21,10 @@ class CPengajuanProposal extends CI_Controller
         $data['title'] = 'Pengajuan Proposal';
         $data['NIM'] = $this->session->userdata('NIM/NIP');
         $data["status"] = $this->MPengajuanProposal->getByNIM($data['NIM']);
-        $NIP = $this->MPengajuanProposal->getByNIM($data['NIM']);
+        // $NIP = $this->MPengajuanProposal->getByNIM($data['NIM']);
         if($data["status"] != null){
-            $NIM = $NIP->NIM;
-            $NIP1 = $NIP->pembimbing1;
+            $NIM = $data['status']->NIM;
+            $NIP1 = $data['status']->pembimbing1;
             $data["output"] = $this->MPengajuanProposal->outputIndex1($NIM, $NIP1);
         }
         // var_dump($data["output"]);
@@ -40,13 +41,13 @@ class CPengajuanProposal extends CI_Controller
         $validation->set_rules($pengajuanProposal->rules());
 
         if ($validation->run()) {
-            $tes = $this->fileProposal();
-            var_dump($tes);
-            die();
-            $pengajuanProposal->save();
-            echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-            <h3>Selamat</h3>
-            <p>Data Berhasil Ditambahkan!</p>');
+            $berkasProposal = $this->fileProposal();
+            $suratKetersediaan = $this->suratKetersediaanPembimbing1();
+
+            $pengajuanProposal->save($berkasProposal, $suratKetersediaan);
+            $url = base_url('mahasiswa/CPengajuanProposal');
+            echo "<script> alert('Tugas Akhir Berhasil Diajukan') </script>";
+            redirect($url, 'refresh');
         }
 
         $this->load->view("mahasiswa/pengajuanProposal/create", $data);
@@ -60,20 +61,61 @@ class CPengajuanProposal extends CI_Controller
 		$config['file_name']            = $filename;
 		$config['overwrite']            = true;
 		$config['max_size']             = 10000; // 10MB
-
         $this->load->library('upload', $config);
-        if ( !$this->upload->do_upload('fileProposal'))
-        {
+
+        if(!empty($_FILES['fileProposal'])){
+            if(!$this->upload->do_upload('fileProposal')){
+                $data['error'] = $this->upload->display_errors();
+                return false;
+            }else{
+                $uploadedData = $this->upload->data();
+                $berkasProposal = $uploadedData['file_name'];
+                return $berkasProposal;
+            }
+        }else{
             $data['error'] = $this->upload->display_errors();
             return false;
         }
-        else
-        {
-            $uploadedData = $this->upload->data();
-            $berkasProposal = $uploadedData['file_name'];
-            return $berkasProposal;
+    } 
+
+    public function suratKetersediaanPembimbing1()
+    {
+        $filename = str_replace('','', 'SuratKetersediaanPembimbing1_'.$this->session->userdata('NIM/NIP'));
+        $config2['upload_path']          = FCPATH.'/upload/suratKetersediaanPembimbing1/';
+		$config2['allowed_types']        = 'pdf';
+		$config2['file_name']            = $filename;
+		$config2['overwrite']            = true;
+		$config2['max_size']             = 10000; // 10MB
+        $this->upload->initialize($config2);
+
+        if(!empty($_FILES['suratKetersediaanPembimbing1'])){
+            if(!$this->upload->do_upload('suratKetersediaanPembimbing1')){
+                $data['error'] = $this->upload->display_errors();
+                return false;
+            }else{
+                $uploadedData = $this->upload->data();
+                $suratKetersediaan = $uploadedData['file_name'];
+                return $suratKetersediaan;
+            }
+        }else{
+            $data['error'] = $this->upload->display_errors();
+            return false;
         }
-    }    
+    }
+
+    public function downloadFileProposal($NIM = NULL)
+    {
+        $data['status'] = $this->MPengajuanProposal->getByNIM($NIM);
+        $file = $data['status']->fileProposal;
+        force_download('./upload/pengajuanProposal/'.$file, NULL);
+    }
+
+    public function downloadSuratKetersediaanPembimbing1($NIM = NULL)
+    {
+        $data['status'] = $this->MPengajuanProposal->getByNIM($NIM);
+        $file = $data['status']->suratKetersediaanPembimbing1;
+        force_download('./upload/suratKetersediaanPembimbing1/'.$file, NULL);
+    }
 
     public function edit($NIP = null)
     {

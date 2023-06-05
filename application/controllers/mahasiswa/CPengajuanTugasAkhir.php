@@ -20,11 +20,11 @@ class CPengajuanTugasAkhir extends CI_Controller
         $data['title'] = 'Pengajuan Tugas Akhir';
         $data['NIM'] = $this->session->userdata('NIM/NIP');
         $data["status"] = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
-        $NIP = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
+        // $NIP = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
         if($data["status"] != null){
-            $NIM = $NIP->NIM;
-            $NIP1 = $NIP->pembimbing1;
-            $NIP2 = $NIP->pembimbing2;
+            $NIM = $data["status"]->NIM;
+            $NIP1 = $data["status"]->pembimbing1;
+            $NIP2 = $data["status"]->pembimbing2;
             if($NIP2 != NULL){
                 $data["output"] = $this->MPengajuanTugasAkhir->outputIndex($NIM, $NIP1, $NIP2);
             }else{
