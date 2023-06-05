@@ -12,11 +12,13 @@ class CCrudDosen extends CI_Controller
             redirect($url, 'refresh');
         };
         $this->load->model("MDosen");
+        $this->load->model("MLogin");
         $this->load->library("form_validation");
     }
 
     public function index()
-    {   $data['title'] = 'CRUD Dosen';
+    {   
+        $data['title'] = 'CRUD Dosen';
         $data["dosen"] = $this->MDosen->getAll();
         $this->load->view("admin/crudDosen/read", $data);
     }
@@ -25,11 +27,15 @@ class CCrudDosen extends CI_Controller
     {
         $data['title'] = 'CRUD Dosen';
         $dosen = $this->MDosen;
+        $login = $this->MLogin;
         $validation = $this->form_validation;
         $validation->set_rules($dosen->rules());
 
         if ($validation->run()) {
             $dosen->save();
+            $pwd = $dosen->NIP;
+            $level = "Dosen";
+            $login->save($pwd, $level);
             echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
             <h3>Selamat</h3>
             <p>Data Berhasil Ditambahkan!</p>');

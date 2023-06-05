@@ -1,5 +1,5 @@
 <?php
-class MDosen extends CI_Model
+class MBimbingan extends CI_Model
 {
 
     public function rules()
@@ -9,12 +9,16 @@ class MDosen extends CI_Model
         'label' => 'NIP',
         'rules' => 'required'],
 
-        ['field' => 'namaDosen',
-        'label' => 'namaDosen',
+        ['field' => 'namaKaprodi',
+        'label' => 'namaKaprodi',
         'rules' => 'required'],
         
         ['field' => 'prodi',
         'label' => 'prodi',
+        'rules' => 'required'],
+
+        ['field' => 'tahunJabatan',
+        'label' => 'tahunJabatan',
         'rules' => 'required'],
 
         ['field' => 'email',
@@ -24,41 +28,38 @@ class MDosen extends CI_Model
 }
     public function getAll()
     {
-        return $this->db->get('dosen')->result();
+        return $this->db->get('bimbingan')->result();
     }
 
-    public function getAllPembimbing2($NIP)
-    {   $sql = "SELECT * FROM dosen WHERE NIP != '$NIP'";
-        return $this->db->query($sql)->result();
-    }
-
-    public function getById($NIP)
+    public function getById($id)
     {
-        return $this->db->get_where("dosen", ["NIP" => $NIP])->row();
+        return $this->db->get_where("bimbingan", ["idBimbingan" => $id])->row();
     }
     
     public function save()
     {
         $post = $this->input->post();
         $this->NIP = $post["NIP"];
-        $this->namaDosen = $post["namaDosen"];
+        $this->namaKaprodi = $post["namaKaprodi"];
         $this->prodi = $post["prodi"];
+        $this->tahunJabatan = $post["tahunJabatan"];
         $this->email = $post["email"];
-        return $this->db->insert('dosen', $this);
+        return $this->db->insert('kaprodi', $this);
     }
 
     public function update()
     {
         $post = $this->input->post();
         $this->NIP = $post["NIP"];
-        $this->namaDosen = $post["namaDosen"];
+        $this->namaKaprodi = $post["namaKaprodi"];
         $this->prodi = $post["prodi"];
+        $this->tahunJabatan = $post["tahunJabatan"];
         $this->email = $post["email"];
-        return $this->db->update('dosen', $this, array('NIP' => $post['NIP']));
+        return $this->db->update('kaprodi', $this, array('NIP' => $post['NIP']));
     }
 
     public function delete($NIP)
     {
-        return $this->db->delete('dosen', array("NIP" => $NIP));
+        return $this->db->delete('kaprodi', array("NIP" => $NIP));
     }
 }

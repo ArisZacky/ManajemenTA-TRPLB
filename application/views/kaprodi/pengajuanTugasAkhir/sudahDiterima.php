@@ -33,7 +33,8 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item active">CRUD Kaprodi</li>
+          <li class="breadcrumb-item">Pengajuan Tugas Akhir</li>
+          <li class="breadcrumb-item active">Sudah Diterima</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -42,62 +43,55 @@
       <div class="row">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Kaprodi</h5>
-
-                <a href="<?php echo base_url('admin/CCrudKaprodi/add'); ?>" class="btn btn-primary">Tambah Data</a>
-                <!-- <a href = "<?php echo base_url('admin/CPrint'); ?>" class="btn btn-success" target="_blank">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Print</span>
-                </a> -->
+              <h5 class="card-title">Data Pengajuan Tugas Akhir</h5>
 
               <!-- Default Table -->
               <table class="table">
                 <thead>
                   <tr>
                       <th>No</th>
-                      <th>NIP</th>
-                      <th>Nama Kaprodi</th>
-                      <th>Prodi</th>
-                      <th>Tahun Jabatan</th>
-                      <th>Email</th>
-                      <th>Action</th>
+                      <th>NIM</th>
+                      <th>Judul Proposal</th>
+                      <th>Abstrak</th>
+                      <th>Pembimbing 1</th>
+                      <th>Pembimbing 2</th>
+                      <th>Berkas Proposal</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php 
-                    if(empty($kaprodi)){
-                      echo "";
+                    if(empty($pengajuanTugasAkhir)){
+                        echo "";
                     }else{
                     $no=1;
-                    foreach ($kaprodi as $row): ?>
+                    foreach ($pengajuanTugasAkhir as $row): ?>
                     <tr>
                       <td>
                         <?php echo $no ?>
                       </td>
                       <td>
-                        <?php echo $row->NIP ?>
+                        <?php echo $row->NIM ?>
                       </td>
                       <td>
-                        <?php echo $row->namaKaprodi ?>
+                        <?php echo $row->judulProposal ?>
                       </td>
                       <td>
-                        <?php echo $row->prodi ?>
+                        <?php echo $row->abstrak ?>
                       </td>
                       <td>
-                        <?php echo $row->tahunJabatan ?>
+                        <?php echo $row->namaDosen1 ?>
                       </td>
                       <td>
-                        <?php echo $row->email ?>
+                        <?php echo $row->namaDosen2 ?>
                       </td>
                       <td>
-                        <a class="btn btn-warning" href="<?php echo base_url('admin/CCrudKaprodi/edit/'.$row->NIP); ?>">Edit</a>
-                        <a class="btn btn-danger" onclick="hapusdata('<?php echo $row->NIP ?>')">Hapus</a>
+                        <a class="btn btn-primary" href="">Download Berkas</a>
                       </td>
                     </tr>
                   <?php 
                     $no++;
-                    endforeach; 
-                  }?>
+                    endforeach;
+                 } ?>
                 </tbody>
               </table>
               <!-- End Default Table Example -->
@@ -121,7 +115,7 @@
   <script language= "javascript" >
   function hapusdata(NIP){
     if(confirm("Apakah yakin menghapus data ini ?")){
-      window.open("<?php echo base_url()?>admin/CCrudKaprodi/delete/"+NIP,"_self");
+      window.open("<?php echo base_url()?>admin/CCrudDosen/delete/"+NIP,"_self");
     }
   }
 

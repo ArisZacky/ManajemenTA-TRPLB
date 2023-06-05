@@ -47,7 +47,7 @@
         <div class="card">
             <div class="card-body">
               <h5 class="card-title">Edit Mahasiswa</h5>
-
+              
               <!-- Multi Columns Form -->
               <form name="createMahasiswa" class="row g-3" method="POST" action="" enctype="multipart/form-data">
                 <div class="col-md-12">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="NIM" class="form-label">NIM</label>
-                  <input type="text" class="form-control" id="NIM" name="NIM" value="<?php echo $mahasiswa->NIM ?>">
+                  <input type="text" class="form-control" id="NIM" name="NIM" value="<?php echo $mahasiswa->NIM ?>" maxlength=10>
                 </div>
                 <div class="col-md-6">
                   <label for="prodi" class="form-label">Prodi</label>

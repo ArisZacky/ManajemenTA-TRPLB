@@ -12,6 +12,7 @@ class CCrudMahasiswa extends CI_Controller
             redirect($url, 'refresh');
         };
         $this->load->model("MMahasiswa");
+        $this->load->model("MLogin");
         $this->load->library("form_validation");
     }
 
@@ -25,11 +26,15 @@ class CCrudMahasiswa extends CI_Controller
     {
         $data['title'] = 'CRUD Mahasiswa';
         $mahasiswa = $this->MMahasiswa;
+        $login = $this->MLogin;
         $validation = $this->form_validation;
         $validation->set_rules($mahasiswa->rules());
 
         if ($validation->run()) {
             $mahasiswa->save();
+            $pwd = $mahasiswa->NIM;
+            $level = "Mahasiswa";
+            $login->save($pwd, $level);
             echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
             <h3>Selamat</h3>
             <p>Data Berhasil Ditambahkan!</p>');

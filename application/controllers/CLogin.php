@@ -26,12 +26,11 @@ class CLogin extends CI_Controller
 
         $validateEmail = $this->Mlogin->auth_email($emailInput);
         if ($validateEmail->num_rows() > 0) {
-            $validatePassword = $this->Mlogin->auth_password($emailInput, $passwordInput);
-            if ($validatePassword->num_rows() > 0) {
-                $x = $validatePassword->row_array();
+            $hasil = $validateEmail->row_array();
+            if (password_verify($passwordInput, $hasil['password'])){
                 //Masasiswa
-                if ($x['level'] == 'Mahasiswa') {
-                    $level = $x['level'];
+                if ($hasil['level'] == 'Mahasiswa') {
+                    $level = $hasil['level'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
@@ -48,8 +47,8 @@ class CLogin extends CI_Controller
                     $this->session->set_userdata('prodi', $prodi);
 
                     redirect('cdashboard');
-                } elseif ($x['level'] == 'Dosen') {
-                    $level = $x['level'];
+                } elseif ($hasil['level'] == 'Dosen') {
+                    $level = $hasil['level'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
@@ -66,8 +65,8 @@ class CLogin extends CI_Controller
                     $this->session->set_userdata('prodi', $prodi);
 
                     redirect('cdashboard');
-                } elseif ($x['level'] == 'Kaprodi') {
-                    $level = $x['level'];
+                } elseif ($hasil['level'] == 'Kaprodi') {
+                    $level = $hasil['level'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
@@ -77,16 +76,18 @@ class CLogin extends CI_Controller
                     $kaprodi = $query->row_array();
                     $NIP = $kaprodi['NIP'];
                     $namaKaprodi = $kaprodi['namaKaprodi'];
+                    $prodi = $kaprodi['prodi'];
                     $tahunJabatan =  $kaprodi['tahunJabatan'];
 
                     $this->session->set_userdata('NIM/NIP', $NIP);
                     $this->session->set_userdata('nama', $namaKaprodi);
+                    $this->session->set_userdata('prodi', $prodi);
                     $this->session->set_userdata('tahunJabatan', $tahunJabatan);
 
                     redirect('cdashboard');
                 }
-                elseif ($x['level'] == 'Admin') {
-                    $level = $x['level'];
+                elseif ($hasil['level'] == 'Admin') {
+                    $level = $hasil['level'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);

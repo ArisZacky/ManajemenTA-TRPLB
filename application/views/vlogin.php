@@ -46,7 +46,7 @@
 
             <!-- BAGIAN KANAN -->
             <div class="single-layout-col right w-col w-col-8">
-                <div class="single-layout-right-header">Don&#x27;t have account? <a href="/signup" class="link"><strong>Sign up</strong></a></div>
+                <!-- <div class="single-layout-right-header">Don&#x27;t have account? <a href="/signup" class="link"><strong>Sign up</strong></a></div> -->
                 <div class="single-layout-right">
                     <div class="single-layout-right-content">
                         <div class="single-layout-logo-right"><a href="/" class="w-inline-block"></a></div>
