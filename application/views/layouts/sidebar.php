@@ -13,13 +13,27 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
+
       <li class="nav-item">
-        <a class="nav-link <?php if($title == 'Pengajuan Proposal'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CPengajuanProposal'); ?>">
-          <i class="bi bi-card-list"></i>
-          <span>Proposal</span>
+        <a class="nav-link collapsed" data-bs-target="#proposal-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Proposal</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End Pengajuan Tugas Akhir Nav -->
-      
+        <ul id="proposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Pengajuan Proposal'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('mahasiswa/CPengajuanProposal'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Pengajuan Proposal</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Ujian Proposal'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('mahasiswa/CUjianProposal'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Ujian Proposal</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Pengajuan Tugas Akhir Nav --> 
+
       <li class="nav-item">
         <a class="nav-link <?php if($title == 'Pengajuan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir'); ?>">
           <i class="bi bi-card-list"></i>
@@ -57,6 +71,13 @@
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="<?php echo base_url('dosen/CUjianProposal'); ?>">
+          <i class="bi bi-calendar-event"></i>
+          <span>Jadwal Ujian Proposal</span>
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="<?php echo base_url('cdashboard'); ?>">

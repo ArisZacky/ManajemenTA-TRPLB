@@ -53,42 +53,44 @@ public function rulesKaprodi()
         return $this->db->get('ujianProposal')->result();
     }
 
-    public function getByNIM($idProposal)
+    public function getById($idProposal)
     {
         return $this->db->get_where("ujianProposal", ["idProposal" => $idProposal])->row();
     }
     
-    public function outputIndex1($NIM, $NIP1)
+    public function outputIndexMahasiswa($NIM)
     {
-        $this->db->select("idProposal, ujianProposal.NIM, judulProposal, fileProposal, suratKetersediaanPembimbing1, modelProposal, status, 
+        $this->db->select("idUjianProposal, waktu, ruangan, ujianProposal.status, 
+        pengajuanProposal.NIM, pengajuanProposal.judulProposal, pengajuanProposal.fileProposal, 
+        pengajuanProposal.pembimbing1, pengajuanProposal.suratKetersediaanPembimbing1, pengajuanProposal.modelProposal,
         mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
-        dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'");
+        dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1',
+        dosen2.NIP as 'NIP2', dosen2.namaDosen as 'namaDosen2', dosen2.email as 'emailDosen2',
+        dosen3.NIP as 'NIP3', dosen3.namaDosen as 'namaDosen3', dosen3.email as 'emailDosen3',
+        dosen4.NIP as 'NIP4', dosen4.namaDosen as 'namaDosen4', dosen4.email as 'emailDosen4'");
         $this->db->from('ujianProposal');
-        $this->db->join('mahasiswa as mahasiswa1', 'ujianProposal.NIM = mahasiswa1.NIM');
-        $this->db->join('dosen as dosen1', 'ujianProposal.pembimbing1 = dosen1.NIP');
-        $this->db->where('ujianProposal.NIM', $NIM);
-        $this->db->where('dosen1.NIP', $NIP1);    
-        // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
-        // "SELECT idProposal, ujianProposal.NIM, judulProposal, fileProposal, suratKetersediaanPembimbing1, modelProposal status, 
-        // mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
-        // dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'
-        // FROM ujianProposal
-        // INNER JOIN mahasiswa as mahasiswa1 ON ujianProposal.NIM = mahasiswa1.NIM
-        // INNER JOIN dosen as dosen1  ON ujianProposal.pembimbing1= dosen1.NIP
+        $this->db->join('pengajuanProposal as pengajuanProposal', 'ujianProposal.idProposal = pengajuanProposal.idProposal');
+        $this->db->join('mahasiswa as mahasiswa1', 'pengajuanProposal.NIM = mahasiswa1.NIM');
+        $this->db->join('dosen as dosen1', 'ujianProposal.penguji1 = dosen1.NIP');
+        $this->db->join('dosen as dosen2', 'ujianProposal.penguji2 = dosen2.NIP');
+        $this->db->join('dosen as dosen3', 'ujianProposal.penguji3 = dosen3.NIP');
+        $this->db->join('dosen as dosen4', 'pengajuanProposal.pembimbing1 = dosen4.NIP');
+        $this->db->where('pengajuanProposal.NIM', $NIM);
+        // $this->db->where('dosen1.NIP', 'ujianProposal.penguji1');  
+        // $this->db->where('dosen2.NIP', 'ujianProposal.penguji2');
+        // $this->db->where('dosen3.NIP', 'ujianProposal.penguji3');  
 
-        // WHERE ujianProposal.NIM = '".$NIM."' AND dosen1.NIP = '".$NIP1."';
-
-        $query = $this->db->get();
-        if($query->num_rows()>0)
-        {
-            foreach($query->result() as $data)
-            {
-                $hasil[]=$data;	
-            }
-        }else{
-            $hasil = '';
-        }
-        return $hasil;
+        $query = $this->db->get()->row();
+        // if($query->num_rows()>0)
+        // {
+        //     foreach($query->result() as $data)
+        //     {
+        //         $hasil[]=$data;	
+        //     }
+        // }else{
+        //     $hasil = '';
+        // }
+        return $query;
     }
 
     public function outputIndexKaprodiBelumDiterima()
@@ -157,6 +159,56 @@ public function rulesKaprodi()
         return $query;
     }
 
+    public function outputIndexDosen($NIP)
+    {
+        $this->db->select("*");
+        $this->db->from('ujianProposal');
+        $this->db->join('pengajuanProposal', 'ujianProposal.idProposal = pengajuanProposal.idProposal');
+        $this->db->join('mahasiswa as mahasiswa1', 'pengajuanProposal.NIM = mahasiswa1.NIM');
+        $this->db->join('nilaiproposalsistem as nilaisistem', 'pengajuanProposal.NIM = mahasiswa1.NIM');
+        // $subQuery= $this->db->query('penguji1 = ', $NIP);
+        // $subQuery= $this->db->or_where('penguji2 = ', $NIP);
+        // $subQuery= $this->db->or_where('penguji3 = ', $NIP);
+        // $this->db->where('ujian.status', 'Dijadwalkan')->fromSubquery($subQuery);
+        $this->db->where('ujianproposal.status = "Dijadwalkan" AND (penguji1 = '.$NIP.' OR penguji2 = '.$NIP.' OR penguji3 = '.$NIP.')');
+        $this->db->where('nilaisistem.nim !=', 'mahasiswa1.NIM');
+        $query = $this->db->get()->result();
+        // if($query->num_rows()>0)
+        // {
+        //     foreach($query->result() as $data)
+        //     {
+        //         $hasil[]=$data;	
+        //     }
+        // }else{
+        //     $hasil = '';
+        // }
+        return $query;
+    }
+
+    public function outputIndexDosenNilai($id)
+    {
+        $this->db->select("*");
+        $this->db->from('ujianProposal');
+        $this->db->join('pengajuanProposal', 'ujianProposal.idProposal = pengajuanProposal.idProposal');
+        $this->db->join('mahasiswa as mahasiswa1', 'pengajuanProposal.NIM = mahasiswa1.NIM');
+        // $subQuery= $this->db->query('penguji1 = ', $NIP);
+        // $subQuery= $this->db->or_where('penguji2 = ', $NIP);
+        // $subQuery= $this->db->or_where('penguji3 = ', $NIP);
+        // $this->db->where('ujian.status', 'Dijadwalkan')->fromSubquery($subQuery);
+        $this->db->where('ujianproposal.idUjianProposal = ', $id);
+        $query = $this->db->get()->row();
+        // if($query->num_rows()>0)
+        // {
+        //     foreach($query->result() as $data)
+        //     {
+        //         $hasil[]=$data;	
+        //     }
+        // }else{
+        //     $hasil = '';
+        // }
+        return $query;
+    }
+    
     public function save()
     {
         $post = $this->input->post();
