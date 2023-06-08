@@ -76,7 +76,7 @@
                         <?php echo $row->namaMahasiswa ?>
                       </td>
                       <td>
-                        <?php echo $row->NIM ?>
+                        <?php echo $row->NIM1 ?>
                       </td>
                       <td>
                         <?php echo $row->judulProposal ?>
@@ -88,7 +88,7 @@
                         <?php echo $row->modelProposal ?>
                       </td>
                       <td>
-                        <a class="btn btn-success" href="<?php if($row->modelProposal = 'Analisa Sistem'){ echo base_url('dosen/CUjianProposal/nilaiProposalSistem/'.$row->idUjianProposal);}else{ echo base_url('dosen/CUjianProposal/nilaiProposalAlat/'.$row->idUjianProposal);}?>">Nilai Proposal</a>
+                        <a class="btn btn-success" href="<?php echo base_url('dosen/CUjianProposal/nilaiProposal/'.$row->idUjianProposal1);?>">Nilai Proposal</a>
                       </td>
                     </tr>
                   <?php 

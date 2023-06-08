@@ -49,9 +49,10 @@ class MNilaiProposalAlat extends CI_Model
         return $this->db->get_where("nilaiproposalsistem", ["NIM" => $NIM])->row();
     }
 
-    public function save($NIM, $NIP, $total, $predikat)
+    public function save($idUjianProposal, $NIM, $NIP, $total, $predikat)
     {
         $post = $this->input->post();
+        $this->idUjianProposal = $idUjianProposal;
         $this->NIM = $NIM;
         $this->NIP = $NIP;
         $this->penampilan = $post["penampilan"];
@@ -62,7 +63,7 @@ class MNilaiProposalAlat extends CI_Model
         $this->kRancangan = $post["kRancangan"];
         $this->total = $total;
         $this->predikat = $predikat;
-        return $this->db->insert('nilaiproposalsistem', $this);
+        return $this->db->insert('nilaiproposalalat', $this);
     }
 
     public function update()

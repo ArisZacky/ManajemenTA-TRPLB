@@ -34,10 +34,50 @@ class CUjianProposal extends CI_Controller
 
     }
 
-    public function nilaiProposal($id=null)
+    public function nilaiProposalAlat($id=null)
     {
         $data['title'] = 'Nilai Proposal';
         $data['output'] = $this->MUjianProposal->outputIndexDosenNilai($id);
+
+        $nilaiProposalAlat = $this->MNilaiProposalAlat;
+        $validation = $this->form_validation;
+        $validation->set_rules($nilaiProposalAlat->rules());
+
+        if ($validation->run()) {
+            $nilaiProposalAlat->save();
+            $pwd = $dosen->NIP;
+            $level = "Dosen";
+            $login->save($pwd, $level);
+            echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
+            <h3>Selamat</h3>
+            <p>Data Berhasil Ditambahkan!</p>');
+        }
+
+        $this->load->view("dosen/ujianProposal/nilaiProposal", $data);
+    }
+
+    public function nilaiProposalSistem($id=null)
+    {
+        $data['title'] = 'Nilai Proposal';
+        $nilaiProposalSistem = $this->MNilaiProposalSistem;
+        $data['output'] = $this->MUjianProposal->outputIndexDosenNilai($id);
+
+        $validation = $this->form_validation;
+        $validation->set_rules($nilaiProposalSistem->rules());
+
+        if ($validation->run()) {
+            $penilaianPenampilan = $this->penampilan = $post["penampilan"];
+            var_dump($penilaianPenampilan);
+            die();
+            $nilaiProposalSistem->save();
+            $pwd = $dosen->NIP;
+            $level = "Dosen";
+            $login->save($pwd, $level);
+            echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
+            <h3>Selamat</h3>
+            <p>Data Berhasil Ditambahkan!</p>');
+        }
+
         $this->load->view("dosen/ujianProposal/nilaiProposal", $data);
     }
 

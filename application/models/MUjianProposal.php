@@ -95,10 +95,8 @@ public function rulesKaprodi()
 
     public function outputIndexKaprodiBelumDiterima()
     {
-        $this->db->select("idProposal, ujianProposal.NIM, judulProposal, fileProposal, pembimbing1, suratKetersediaanPembimbing1, modelProposal, status, 
-        mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
-        dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'");
-        $this->db->from('ujianProposal');
+        $this->db->select("*, COUNT(`nilaiproposalsistem`.`NIM`) cnt");
+        $this->db->from('nilaiProposalSistem');
         $this->db->join('mahasiswa as mahasiswa1', 'ujianProposal.NIM = mahasiswa1.NIM');
         $this->db->join('dosen as dosen1', 'ujianProposal.pembimbing1 = dosen1.NIP');
         $this->db->where('ujianProposal.status', 'Diproses');
@@ -161,17 +159,19 @@ public function rulesKaprodi()
 
     public function outputIndexDosen($NIP)
     {
-        $this->db->select("*");
+        $this->db->select("`ujianProposal`.`idUjianProposal` AS 'idUjianProposal1', `ujianProposal`.`waktu`, `ujianProposal`.`ruangan`, `ujianProposal`.`idProposal`, `ujianProposal`.`penguji1`, `ujianProposal`.`penguji2`, `ujianProposal`.`penguji3`, `ujianProposal`.`status`, 
+        `pengajuanProposal1`.`idProposal`, `pengajuanProposal1`.`NIM` AS 'NIM1', `pengajuanProposal1`.`judulProposal`, `pengajuanProposal1`.`fileProposal`, `pengajuanProposal1`.`modelProposal`, 
+        `mahasiswa1`.`namaMahasiswa`, `mahasiswa1`.`prodi`, `mahasiswa1`.`prodi`, `mahasiswa1`.`email`, 
+        `nilaisistem`.`idUjianProposal` AS 'idUjianProposal2', `nilaisistem`.`NIM` AS 'NIM2', `nilaisistem`.`NIP` AS 'NIP2',
+        `nilaialat`.`idUjianProposal` AS 'idUjianProposal3', `nilaialat`.`NIM` AS 'NIM3', `nilaialat`.`NIP` AS 'NIP3'");
         $this->db->from('ujianProposal');
-        $this->db->join('pengajuanProposal', 'ujianProposal.idProposal = pengajuanProposal.idProposal');
-        $this->db->join('mahasiswa as mahasiswa1', 'pengajuanProposal.NIM = mahasiswa1.NIM');
-        $this->db->join('nilaiproposalsistem as nilaisistem', 'pengajuanProposal.NIM = mahasiswa1.NIM');
-        // $subQuery= $this->db->query('penguji1 = ', $NIP);
-        // $subQuery= $this->db->or_where('penguji2 = ', $NIP);
-        // $subQuery= $this->db->or_where('penguji3 = ', $NIP);
-        // $this->db->where('ujian.status', 'Dijadwalkan')->fromSubquery($subQuery);
-        $this->db->where('ujianproposal.status = "Dijadwalkan" AND (penguji1 = '.$NIP.' OR penguji2 = '.$NIP.' OR penguji3 = '.$NIP.')');
-        $this->db->where('nilaisistem.nim !=', 'mahasiswa1.NIM');
+        $this->db->join('pengajuanProposal as pengajuanProposal1', 'ujianProposal.idProposal = pengajuanProposal1.idProposal');
+        $this->db->join('mahasiswa as mahasiswa1', 'pengajuanProposal1.NIM = mahasiswa1.NIM');
+        $this->db->join('nilaiproposalsistem as nilaisistem', 'ujianProposal.idUjianProposal = nilaisistem.idUjianProposal', 'left');
+        $this->db->join('nilaiproposalalat as nilaialat', 'ujianProposal.idUjianProposal = nilaialat.idUjianProposal', 'left');
+        $this->db->where('ujianproposal.status = "Dijadwalkan" AND (`nilaisistem`.`NIM` IS NULL OR `nilaisistem`.`NIP` != '.$NIP.') 
+        AND (`nilaialat`.`NIM` IS NULL OR `nilaialat`.`NIP` != '.$NIP.')
+        AND (`penguji1` = '.$NIP.' OR `penguji2` = '.$NIP.' OR `penguji3` = '.$NIP.')');
         $query = $this->db->get()->result();
         // if($query->num_rows()>0)
         // {

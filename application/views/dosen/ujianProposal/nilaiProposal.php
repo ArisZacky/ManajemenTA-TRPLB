@@ -49,7 +49,7 @@
 
               <form name="createPengajuanTugasAkhir" method="POST" action="<?php echo base_url('dosen/CUjianProposal/tambahNilaiProposal'); ?>" >
               <input type="hidden" class="form-control" value="<?php echo $this->session->userdata('NIM/NIP'); ?>" name="NIP">
-
+              <input type="hidden" class="form-control" value="<?php echo $output->idUjianProposal; ?>" name="idUjianProposal">
                 <div class="row mb-3">
                   <label for="namaMahasiswa" class="col-sm-2 col-form-label">Nama Mahasiswa</label>
                   <div class="col-sm-10">

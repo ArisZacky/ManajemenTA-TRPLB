@@ -135,6 +135,26 @@
             </a>
           </li>
         </ul>
+
+      </li><!-- End Pengajuan Tugas Akhir Nav -->    
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#ujianproposal-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Ujian Proposal</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="ujianproposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Ujian Proposal Belum Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanProposal/belumDiterima'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Sudah Dinilai menunggu Konfirmasi</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Ujian Proposal Sudah Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanProposal/sudahDiterima'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Sudah Dinilai sudah Dikonfirmasi</span>
+            </a>
+          </li>
+        </ul>
       </li><!-- End Pengajuan Tugas Akhir Nav -->    
 
       <li class="nav-item">
