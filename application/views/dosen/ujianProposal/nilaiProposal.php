@@ -85,59 +85,46 @@
                 <div class="row mb-3">
                   <label for="pembimbing1" class="col-sm-2 col-form-label">Nilai Penampilan (10%)</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="penampilan">                 
+                    <input type="number" class="form-control" name="k1">                 
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="pembimbing1" class="col-sm-2 col-form-label">Nilai Kesiapan Pengetahuan (20%)</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="kPengetahuan">                 
+                    <input type="number" class="form-control" name="k2">                 
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="pembimbing1" class="col-sm-2 col-form-label">Nilai Kesiapan Sumber Daya Pendukung (20%)</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="KSDP">                 
+                    <input type="number" class="form-control" name="k3">                 
                   </div>
                 </div>
                 
                 <div class="row mb-3">
                   <label for="pembimbing1" class="col-sm-2 col-form-label">Nilai Keterkaitan Permasalahan, Tujuan, dan Hasil (10%)</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="KPTH">                 
+                    <input type="number" class="form-control" name="k4">                 
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label id="labelkPerencanaan" for="pembimbing1" class="col-sm-2 col-form-label">Nilai Kesiapan Perencanaan (20%)</label>
+                  <label id="labelKLTP"for="pembimbing1" class="col-sm-2 col-form-label">Nilai Kesiapan Landasan Teoritis Perencanaan (20%)</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="kPerencanaan" id="kPerencanaan">                 
+                    <input type="number" class="form-control" name="k5" id="kPerencanaan">                 
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label id="labelkRancangan" for="pembimbing1" class="col-sm-2 col-form-label">Nilai Kesiapan Rancangan (20%)</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control" name="kRancangan" id="kRancangan">                 
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label id="labelKLTP"for="pembimbing1" class="col-sm-2 col-form-label">Nilai Kesiapan Landasan Teoritis Perencanaan (20%)</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control" name="KLTP" id="KLTP">                 
-                  </div>
-                </div>
-
-                <div class="row mb-3">
                   <label id="labelKMPA"for="pembimbing1" class="col-sm-2 col-form-label">Nilai Kesiapan Metode Perencanaan dan Analisis (20%)</label>
                   <div class="col-sm-10">
-                    <input id="KMPA" type="number" class="form-control" name="KMPA">       
+                    <input type="number" class="form-control" name="k6" id="kRancangan">                 
                   </div>
                 </div>
-
 
                 <div class="text-center">
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-submit">
@@ -177,29 +164,21 @@
       model = document.getElementById('modelProposal')
       if (model.value == "Analisa Sistem") {
       //display textbox
-        document.getElementById('KMPA').style.display = "block";
         document.getElementById('labelKMPA').style.display = "block";
-        document.getElementById('KLTP').style.display = "block";
         document.getElementById('labelKLTP').style.display = "block";
       } else {
       //hide textbox
-        document.getElementById('KMPA').style.display = "none";
         document.getElementById('labelKMPA').style.display = "none";
-        document.getElementById('KLTP').style.display = "none";
         document.getElementById('labelKLTP').style.display = "none";
       }
 
       if (model.value == "Pembuatan Alat") {
       //display textbox
-        document.getElementById('kPerencanaan').style.display = "block";
         document.getElementById('labelkPerencanaan').style.display = "block";
-        document.getElementById('kPerencanaan').style.display = "block";
         document.getElementById('labelkPerencanaan').style.display = "block";
       } else {
       //hide textbox
-        document.getElementById('kPerencanaan').style.display = "none";
         document.getElementById('labelkPerencanaan').style.display = "none";
-        document.getElementById('kRancangan').style.display = "none";
         document.getElementById('labelkRancangan').style.display = "none";
       }
 

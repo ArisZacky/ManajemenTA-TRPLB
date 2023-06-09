@@ -33,8 +33,8 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item">Pengajuan Proposal</li>
-          <li class="breadcrumb-item active">Belum Diterima</li>
+          <li class="breadcrumb-item">Ujian Proposal</li>
+          <li class="breadcrumb-item active">Sudah Dinilai</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -47,7 +47,6 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Data Ujian Tugas Akhir</h5>
-
               <!-- Default Table -->
               <table class="table">
                 <thead>
@@ -57,8 +56,9 @@
                       <th>NIM</th>
                       <th>Judul Proposal</th>
                       <th>File Proposal</th>
+                      <th>Waktu</th>
+                      <th>Ruangan</th>
                       <th>Model Proposal</th>
-                      <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,10 +85,13 @@
                         <?php echo $row->fileProposal ?>
                       </td>
                       <td>
-                        <?php echo $row->modelProposal ?>
+                        <?php echo $row->waktu ?>
                       </td>
                       <td>
-                        <a class="btn btn-success" href="<?php echo base_url('dosen/CUjianProposal/nilaiProposal/'.$row->idUjianProposal1);?>">Nilai Proposal</a>
+                        <?php echo $row->ruangan ?>
+                      </td>
+                      <td>
+                        <?php echo $row->modelProposal ?>
                       </td>
                     </tr>
                   <?php 

@@ -11,22 +11,25 @@ class CUjianProposal extends CI_Controller
             echo "<script> alert('Maaf Anda Tidak Memiliki Akses ke Halaman Ini!') </script>";
             redirect($url, 'refresh');
         };
-        $this->load->model(["MUjianProposal","MDosen","MNilaiProposalAlat","MNilaiProposalSistem"]);
+        $this->load->model(["MUjianProposal","MDosen","MNilaiProposal"]);
         $this->load->library("form_validation");
         $this->load->helper(['url','download']);
     }
 
     public function index()
     {   
-        $data['title'] = 'Ujian Proposal';
+        $data['title'] = 'Ujian Proposal Belum Dinilai';
         $data['NIP'] = $this->session->userdata('NIM/NIP');
         $data["ujianProposal"] = $this->MUjianProposal->outputIndexDosen($data['NIP']);
-        // var_dump($data["ujianProposal"]);
-        // die();
-        // $NIP = $this->MUjianProposal->getByNIM($data['NIM']);
-        // var_dump($data["output"]);
-        // die();
-        $this->load->view("dosen/ujianProposal/index", $data);
+        $this->load->view("dosen/ujianProposal/belumDinilai", $data);
+    }
+
+    public function sudahDinilai()
+    {   
+        $data['title'] = 'Ujian Proposal Sudah Dinilai';
+        $data['NIP'] = $this->session->userdata('NIM/NIP');
+        $data["ujianProposal"] = $this->MUjianProposal->outputIndexDosenSudahNilai($data['NIP']);
+        $this->load->view("dosen/ujianProposal/sudahDinilai", $data);
     }
 
     public function add()
@@ -43,62 +46,64 @@ class CUjianProposal extends CI_Controller
 
     public function tambahNilaiProposal()
     {   
-        $NIM = $_POST['NIM'];
         $NIP = $_POST['NIP'];
         $modelProposal = $_POST['modelProposal'];
         $idUjianProposal = $_POST['idUjianProposal'];
 
 
-        $penampilan = $_POST['penampilan'];
-        $bobotPenampilan = $penampilan*0.1;
+        $k1 = $_POST['k1'];
+        $bobotk1 = $k1*0.1;
         // 10%
 
-        $kPengetahuan = $_POST['kPengetahuan'];
-        $bobotkPengetahuan = $kPengetahuan*0.2;
+        $k2 = $_POST['k2'];
+        $bobotk2 = $k2*0.2;
         // 20%
 
-        $KSDP = $_POST['KSDP'];
-        $bobotKSDP = $KSDP*0.2;
+        $k3 = $_POST['k3'];
+        $bobotk3 = $k3*0.2;
         // 20%
 
-        $KPTH = $_POST['KPTH'];
-        $bobotKPTH = $KPTH*0.1;
+        $k4 = $_POST['k4'];
+        $bobotk4 = $k4*0.1;
         // 10%
+
+        $k5 = $_POST['k5'];
+        $bobotk5 = $k5*0.2;
+        // 20%
+            
+        $k6 = $_POST['k6'];
+        $bobotk6 = $k6*0.2;
+        // 20%
+
         if($modelProposal == 'Analisa Sistem'){
-            $KLTP = $_POST['KLTP'];
-            $bobotKLTP = $KLTP*0.2;
-            // 20%
-    
-            $KMPA = $_POST['KMPA'];
-            $bobotKMPA = $KMPA*0.2;
-            // 20%
 
-            $total = $bobotPenampilan + $bobotkPengetahuan + $bobotKSDP +
-            $bobotKPTH + $bobotKLTP + $bobotKMPA;
-            $predikat;
 
-            if($total >= 81 && $total <=100){
-                $predikat = 'A';
-            }elseif($total >= 76 && $total <=80){
-                $predikat = 'AB';
-            }elseif($total >= 66 && $total <=75){
-                $predikat = 'B';
-            }elseif($total >= 61 && $total <=65){
-                $predikat = 'BC';
-            }elseif($total >= 56 && $total <=60){
-                $predikat = 'C';
-            }elseif($total >= 41 && $total <=55){
-                $predikat = 'D';
-            }elseif($total < 41){
-                $predikat = 'E';
-            }
+            $total = $bobotk1 + $bobotk2 + $bobotk3 +
+            $bobotk4 + $bobotk5 + $bobotk6;
+            // $predikat;
 
-            $nilaiProposalSistem = $this->MNilaiProposalSistem;
+            // if($total >= 81 && $total <=100){
+            //     $predikat = 'A';
+            // }elseif($total >= 76 && $total <=80){
+            //     $predikat = 'AB';
+            // }elseif($total >= 66 && $total <=75){
+            //     $predikat = 'B';
+            // }elseif($total >= 61 && $total <=65){
+            //     $predikat = 'BC';
+            // }elseif($total >= 56 && $total <=60){
+            //     $predikat = 'C';
+            // }elseif($total >= 41 && $total <=55){
+            //     $predikat = 'D';
+            // }elseif($total < 41){
+            //     $predikat = 'E';
+            // }
+
+            $nilaiProposal = $this->MNilaiProposal;
             $validation = $this->form_validation;
-            $validation->set_rules($nilaiProposalSistem->rules());
+            $validation->set_rules($nilaiProposal->rules());
     
             if ($validation->run()) {
-                $nilaiProposalSistem->save($idUjianProposal, $NIM, $NIP, $total, $predikat);
+                $nilaiProposal->save($idUjianProposal, $NIP, $total);
                 $url = base_url('dosen/CUjianProposal');
                 echo "<script> alert('Propsal berhasil di nilai!') </script>";
                 redirect($url, 'refresh');
@@ -106,40 +111,33 @@ class CUjianProposal extends CI_Controller
         }
 
         if($modelProposal == 'Pembuatan Alat'){
-            $kPerencanaan = $_POST['kPerencanaan'];
-            $bobotkPerencanaan = $kPerencanaan*0.2;
-            // 20%
-    
-            $kRancangan = $_POST['kRancangan'];
-            $bobotkRancangan = $kRancangan*0.2;
-            // 20%
 
-            $total = $bobotPenampilan + $bobotkPengetahuan + $bobotKSDP +
-            $bobotKPTH + $bobotkPerencanaan + $bobotkRancangan;
-            $predikat;
+            $total = $bobotk1 + $bobotk2 + $bobotk3 +
+            $bobotk4 + $bobotk5 + $bobotk6;
+            // $predikat;
 
-            if($total >= 81 && $total <=100){
-                $predikat = 'A';
-            }elseif($total >= 76 && $total <=80){
-                $predikat = 'AB';
-            }elseif($total >= 66 && $total <=75){
-                $predikat = 'B';
-            }elseif($total >= 61 && $total <=65){
-                $predikat = 'BC';
-            }elseif($total >= 56 && $total <=60){
-                $predikat = 'C';
-            }elseif($total >= 41 && $total <=55){
-                $predikat = 'D';
-            }elseif($total < 41){
-                $predikat = 'E';
-            }
+            // if($total >= 81 && $total <=100){
+            //     $predikat = 'A';
+            // }elseif($total >= 76 && $total <=80){
+            //     $predikat = 'AB';
+            // }elseif($total >= 66 && $total <=75){
+            //     $predikat = 'B';
+            // }elseif($total >= 61 && $total <=65){
+            //     $predikat = 'BC';
+            // }elseif($total >= 56 && $total <=60){
+            //     $predikat = 'C';
+            // }elseif($total >= 41 && $total <=55){
+            //     $predikat = 'D';
+            // }elseif($total < 41){
+            //     $predikat = 'E';
+            // }
             
-            $nilaiProposalAlat = $this->MNilaiProposalAlat;
+            $nilaiProposal = $this->MNilaiProposal;
             $validation = $this->form_validation;
-            $validation->set_rules($nilaiProposalAlat->rules());
+            $validation->set_rules($nilaiProposal->rules());
     
             if ($validation->run()) {
-                $nilaiProposalAlat->save($idUjianProposal, $NIM, $NIP, $total, $predikat);
+                $nilaiProposal->save($idUjianProposal, $NIP, $total);
                 $url = base_url('dosen/CUjianProposal');
                 echo "<script> alert('Propsal berhasil di nilai!') </script>";
                 redirect($url, 'refresh');

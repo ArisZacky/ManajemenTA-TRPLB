@@ -6,7 +6,7 @@ class CUjianProposal extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('level') != 'Dosen') {
+        if ($this->session->userdata('level') != 'Kaprodi') {
             $url = base_url();
             echo "<script> alert('Maaf Anda Tidak Memiliki Akses ke Halaman Ini!') </script>";
             redirect($url, 'refresh');
@@ -19,14 +19,13 @@ class CUjianProposal extends CI_Controller
     public function index()
     {   
         $data['title'] = 'Ujian Proposal';
-        $data['NIP'] = $this->session->userdata('NIM/NIP');
-        $data["ujianProposal"] = $this->MUjianProposal->outputIndexDosen($data['NIP']);
+        $data["ujianProposal"] = $this->MUjianProposal->outputIndexKaprodiBelumDiterima();
         // var_dump($data["ujianProposal"]);
         // die();
         // $NIP = $this->MUjianProposal->getByNIM($data['NIM']);
         // var_dump($data["output"]);
         // die();
-        $this->load->view("dosen/ujianProposal/index", $data);
+        $this->load->view("kaprodi/ujianProposal/belumDiterima", $data);
     }
 
     public function add()

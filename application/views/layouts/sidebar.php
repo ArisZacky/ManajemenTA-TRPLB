@@ -73,6 +73,26 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#ujianproposal-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal Ujian Proposal</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="ujianproposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Ujian Proposal Belum Dinilai'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('dosen/CUjianProposal/index'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Belum Dinilai</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Ujian Proposal Sudah Dinilai'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('dosen/CUjianProposal/sudahDinilai'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Sudah Dinilai</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Pengajuan Tugas Akhir Nav -->    
+
+      <li class="nav-item">
         <a class="nav-link collapsed" href="<?php echo base_url('dosen/CUjianProposal'); ?>">
           <i class="bi bi-calendar-event"></i>
           <span>Jadwal Ujian Proposal</span>
@@ -143,13 +163,13 @@
         </a>
         <ul id="ujianproposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a class="<?php if($title == 'Ujian Proposal Belum Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanProposal/belumDiterima'); ?>">
+            <a class="<?php if($title == 'Ujian Proposal Belum Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianProposal/index'); ?>">
               <i class="bi bi-circle"></i>
               <span>Sudah Dinilai menunggu Konfirmasi</span>
             </a>
           </li>
           <li>
-            <a class="<?php if($title == 'Ujian Proposal Sudah Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CPengajuanProposal/sudahDiterima'); ?>">
+            <a class="<?php if($title == 'Ujian Proposal Sudah Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianProposal/sudahDiterima'); ?>">
               <i class="bi bi-circle"></i>
               <span>Sudah Dinilai sudah Dikonfirmasi</span>
             </a>
