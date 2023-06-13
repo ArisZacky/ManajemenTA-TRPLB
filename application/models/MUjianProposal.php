@@ -48,6 +48,20 @@ public function rulesKaprodi()
 
     ];
 }
+
+public function rulesRevisi()
+{
+    return [
+        ['field' => 'fileRevisi',
+        'label' => 'fileRevisi',
+        'rules' => 'required'],
+
+        ['field' => 'status',
+        'label' => 'status',
+        'rules' => 'required'],
+
+    ];
+}
     public function getAll()
     {
         return $this->db->get('ujianProposal')->result();
@@ -60,7 +74,7 @@ public function rulesKaprodi()
     
     public function outputIndexMahasiswa($NIM)
     {
-        $this->db->select("idUjianProposal, waktu, ruangan, ujianProposal.status, 
+        $this->db->select("idUjianProposal, waktu, ruangan, ujianProposal.status, ujianProposal.fileRevisi,
         pengajuanProposal.NIM, pengajuanProposal.judulProposal, pengajuanProposal.fileProposal, 
         pengajuanProposal.pembimbing1, pengajuanProposal.suratKetersediaanPembimbing1, pengajuanProposal.modelProposal,
         mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
@@ -91,6 +105,25 @@ public function rulesKaprodi()
         //     $hasil = '';
         // }
         return $query;
+    }
+
+
+    public function countMahasiswa($idUjianProposal)
+    {
+        $this->db->select("COUNT(`nilaiProposal`.`idUjianProposal`) cnt");
+        $this->db->from('nilaiProposal');
+        $this->db->where('nilaiProposal.idUjianProposal', $idUjianProposal);
+        $query = $this->db->get()->row();
+        return $query;
+    }
+
+    public function mahasiswaRevisi($idUjianProposal, $fileRevisi)
+    {
+        $post = $this->input->post();
+        $this->fileProposal = $fileProposal;
+        $this->status = $post['status'];
+
+        return $this->db->update('ujianProposal', $this, array('idProposal' => $post['idProposal']));
     }
 
     public function outputIndexKaprodiBelumDiterima()

@@ -41,7 +41,6 @@
 
     <section class="section proses approve">
       <div class="row">
-      <?php var_dump($pengajuan)?>
         <div class="card">
             <div class="card-body">
               <h5 class="card-title">Approve Proposal</h5>

@@ -46,7 +46,7 @@ class CPengajuanTugasAkhir extends CI_Controller
 		$config['allowed_types']        = 'pdf';
 		$config['file_name']            = $filename;
 		$config['overwrite']            = true;
-		$config['max_size']             = 1024; // 1MB
+		$config['max_size']             = 10000; // 10MB
 
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('berkasProposal'))
