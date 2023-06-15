@@ -11,7 +11,7 @@ class CUjianProposal extends CI_Controller
             echo "<script> alert('Maaf Anda Tidak Memiliki Akses ke Halaman Ini!') </script>";
             redirect($url, 'refresh');
         };
-        $this->load->model(["MUjianProposal","MDosen","MNilaiProposalAlat","MNilaiProposalSistem"]);
+        $this->load->model(["MPengajuanTugasAkhir","MDosen","MUjianProposal","MNilaiProposal","MPengajuanProposal"]);
         $this->load->library("form_validation");
         $this->load->helper(['url','download']);
     }
@@ -33,171 +33,94 @@ class CUjianProposal extends CI_Controller
 
     }
 
-    public function nilaiProposalAlat($id=null)
+    public function proses($idUjianProposal = null)
     {
-        $data['title'] = 'Nilai Proposal';
-        $data['output'] = $this->MUjianProposal->outputIndexDosenNilai($id);
-
-        $nilaiProposalAlat = $this->MNilaiProposalAlat;
+        $data['title'] = "Approve Revisi";
+        if(!isset($idUjianProposal)) redirect('kaprodi/CUjianProposal/');
+        
+        
+        $ujianProposal = $this->MUjianProposal;
+        $nilaiProposal = $this->MNilaiProposal;
+        $pengajuan = $this->MPengajuanTugasAkhir;
         $validation = $this->form_validation;
-        $validation->set_rules($nilaiProposalAlat->rules());
+        $validation->set_rules($ujianProposal->rulesKaprodi());
+        $validation2 = $this->form_validation;
+        $validation2->set_rules($pengajuan->rulesKaprodi());
 
-        if ($validation->run()) {
-            $nilaiProposalAlat->save();
-            $pwd = $dosen->NIP;
-            $level = "Dosen";
-            $login->save($pwd, $level);
-            echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-            <h3>Selamat</h3>
-            <p>Data Berhasil Ditambahkan!</p>');
+        $avgNilai = $nilaiProposal->getAvg($idUjianProposal);
+        // var_dump($avgNilai->total);
+        // die();
+
+        $x = $ujianProposal->outputProsesKaprodi($idUjianProposal);
+        if ($x == null) {
+            $url = base_url('kaprodi/CUjianProposal/belumDiterima');
+            echo "<script> alert('Maaf data tidak ada') </script>";
+            redirect($url, 'refresh');
+        };
+        
+        $y = $nilaiProposal->countMahasiswa($idUjianProposal);
+
+        if($y->cnt != 3){
+            $url = base_url('kaprodi/CUjianProposal/belumDiterima');
+            echo "<script> alert('Maaf data belum dinilai secara lengkap') </script>";
+            redirect($url, 'refresh');
         }
 
-        $this->load->view("dosen/ujianProposal/nilaiProposal", $data);
-    }
 
-    public function nilaiProposalSistem($id=null)
-    {
-        $data['title'] = 'Nilai Proposal';
-        $nilaiProposalSistem = $this->MNilaiProposalSistem;
-        $data['output'] = $this->MUjianProposal->outputIndexDosenNilai($id);
+        $data["ujianProposal"] = $ujianProposal->outputProsesDetailKaprodi($idUjianProposal);
+        $data["nilaiProposal"] = $nilaiProposal->getByidUjianProposal($idUjianProposal);
+        $data['dosen'] = $this->MDosen->getAllPembimbing2($x->pembimbing1);
 
-        $validation = $this->form_validation;
-        $validation->set_rules($nilaiProposalSistem->rules());
+        if(!$data["ujianProposal"]) show_404();
 
-        if ($validation->run()) {
-            $penilaianPenampilan = $this->penampilan = $post["penampilan"];
-            var_dump($penilaianPenampilan);
+        if ($data["ujianProposal"]->status == 'Telah Selesai Ujian') {
+            $url = base_url('kaprodi/CUjianProposal/belumDiterima');
+            echo "<script> alert('Maaf data pengajuan ini telah di terima') </script>";
+            redirect($url, 'refresh');
+        };
+
+        if($validation->run() == false){
+            $this->load->view("kaprodi/ujianProposal/proses", $data);
+        }else{
+            if($_POST['status'] == 'Telah Selesai Ujian'){
+                $ujianProposal->update();
+                $pengajuan->saveKaprodi();
+                
+                $url = base_url('kaprodi/CUjianProposal/sudahDiterima');
+                echo "<script> alert('Propsal berhasil di approve!') </script>";
+                redirect($url, 'refresh');    
+            }
+            elseif($_POST['status'] == 'Revisi Ditolak'){
+                $ujianProposal->update();
+                
+                $url = base_url('kaprodi/CUjianProposal/sudahDiterima');
+                echo "<script> alert('Propsal berhasil di tolak!') </script>";
+                redirect($url, 'refresh');
+            }
+            var_dump($_POST['status']);
             die();
-            $nilaiProposalSistem->save();
-            $pwd = $dosen->NIP;
-            $level = "Dosen";
-            $login->save($pwd, $level);
-            echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-            <h3>Selamat</h3>
-            <p>Data Berhasil Ditambahkan!</p>');
-        }
-
-        $this->load->view("dosen/ujianProposal/nilaiProposal", $data);
-    }
-
-    public function tambahNilaiProposal()
-    {   
-        $NIM = $_POST['NIM'];
-        $NIP = $_POST['NIP'];
-        $modelProposal = $_POST['modelProposal'];
-        $idUjianProposal = $_POST['idUjianProposal'];
-
-
-        $penampilan = $_POST['penampilan'];
-        $bobotPenampilan = $penampilan*0.1;
-        // 10%
-
-        $kPengetahuan = $_POST['kPengetahuan'];
-        $bobotkPengetahuan = $kPengetahuan*0.2;
-        // 20%
-
-        $KSDP = $_POST['KSDP'];
-        $bobotKSDP = $KSDP*0.2;
-        // 20%
-
-        $KPTH = $_POST['KPTH'];
-        $bobotKPTH = $KPTH*0.1;
-        // 10%
-        if($modelProposal == 'Analisa Sistem'){
-            $KLTP = $_POST['KLTP'];
-            $bobotKLTP = $KLTP*0.2;
-            // 20%
-    
-            $KMPA = $_POST['KMPA'];
-            $bobotKMPA = $KMPA*0.2;
-            // 20%
-
-            $total = $bobotPenampilan + $bobotkPengetahuan + $bobotKSDP +
-            $bobotKPTH + $bobotKLTP + $bobotKMPA;
-            $predikat;
-
-            if($total >= 81 && $total <=100){
-                $predikat = 'A';
-            }elseif($total >= 76 && $total <=80){
-                $predikat = 'AB';
-            }elseif($total >= 66 && $total <=75){
-                $predikat = 'B';
-            }elseif($total >= 61 && $total <=65){
-                $predikat = 'BC';
-            }elseif($total >= 56 && $total <=60){
-                $predikat = 'C';
-            }elseif($total >= 41 && $total <=55){
-                $predikat = 'D';
-            }elseif($total < 41){
-                $predikat = 'E';
-            }
-
-            $nilaiProposalSistem = $this->MNilaiProposalSistem;
-            $validation = $this->form_validation;
-            $validation->set_rules($nilaiProposalSistem->rules());
-    
-            if ($validation->run()) {
-                $nilaiProposalSistem->save($idUjianProposal, $NIM, $NIP, $total, $predikat);
-                $url = base_url('dosen/CUjianProposal');
-                echo "<script> alert('Propsal berhasil di nilai!') </script>";
-                redirect($url, 'refresh');
-            }
-        }
-
-        if($modelProposal == 'Pembuatan Alat'){
-            $kPerencanaan = $_POST['kPerencanaan'];
-            $bobotkPerencanaan = $kPerencanaan*0.2;
-            // 20%
-    
-            $kRancangan = $_POST['kRancangan'];
-            $bobotkRancangan = $kRancangan*0.2;
-            // 20%
-
-            $total = $bobotPenampilan + $bobotkPengetahuan + $bobotKSDP +
-            $bobotKPTH + $bobotkPerencanaan + $bobotkRancangan;
-            $predikat;
-
-            if($total >= 81 && $total <=100){
-                $predikat = 'A';
-            }elseif($total >= 76 && $total <=80){
-                $predikat = 'AB';
-            }elseif($total >= 66 && $total <=75){
-                $predikat = 'B';
-            }elseif($total >= 61 && $total <=65){
-                $predikat = 'BC';
-            }elseif($total >= 56 && $total <=60){
-                $predikat = 'C';
-            }elseif($total >= 41 && $total <=55){
-                $predikat = 'D';
-            }elseif($total < 41){
-                $predikat = 'E';
-            }
-            
-            $nilaiProposalAlat = $this->MNilaiProposalAlat;
-            $validation = $this->form_validation;
-            $validation->set_rules($nilaiProposalAlat->rules());
-    
-            if ($validation->run()) {
-                $nilaiProposalAlat->save($idUjianProposal, $NIM, $NIP, $total, $predikat);
-                $url = base_url('dosen/CUjianProposal');
-                echo "<script> alert('Propsal berhasil di nilai!') </script>";
-                redirect($url, 'refresh');
-            }
         }
     }
 
     public function downloadFileProposal($NIM = NULL)
     {
-        $data['status'] = $this->MUjianProposal->getByNIM($NIM);
+        $data['status'] = $this->MPengajuanProposal->getByNIM($NIM);
         $file = $data['status']->fileProposal;
-        force_download('./upload/ujianProposal/'.$file, NULL);
+        force_download('./upload/pengajuanProposal/'.$file, NULL);
     }
 
     public function downloadSuratKetersediaanPembimbing1($NIM = NULL)
     {
-        $data['status'] = $this->MUjianProposal->getByNIM($NIM);
+        $data['status'] = $this->MPengajuanProposal->getByNIM($NIM);
         $file = $data['status']->suratKetersediaanPembimbing1;
         force_download('./upload/suratKetersediaanPembimbing1/'.$file, NULL);
+    }
+
+    public function downloadFileRevisi($id = NULL)
+    {
+        $data['status'] = $this->MUjianProposal->getByID($id);
+        $file = $data['status']->fileRevisi;
+        force_download('./upload/revisiProposal/'.$file, NULL);
     }
 
     public function edit($NIP = null)

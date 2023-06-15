@@ -11,7 +11,7 @@ class CUjianProposal extends CI_Controller
             echo "<script> alert('Maaf Anda Tidak Memiliki Akses ke Halaman Ini!') </script>";
             redirect($url, 'refresh');
         };
-        $this->load->model(["MUjianProposal","MDosen"]);
+        $this->load->model(["MUjianProposal","MDosen","MNilaiProposal"]);
         $this->load->library("form_validation");
         $this->load->helper(['url','download']);
     }
@@ -22,7 +22,7 @@ class CUjianProposal extends CI_Controller
         $data['NIM'] = $this->session->userdata('NIM/NIP');
         $data["output"] = $this->MUjianProposal->outputIndexMahasiswa($data['NIM']);
 
-        $data["count"] = $this->MUjianProposal->countMahasiswa($data["output"]->idUjianProposal);
+        $data["count"] = $this->MNilaiProposal->countMahasiswa($data["output"]->idUjianProposal);
         // var_dump($data["count"]);
         // die();
         // var_dump($data["output"]);
@@ -43,16 +43,13 @@ class CUjianProposal extends CI_Controller
         $data['NIM'] = $this->session->userdata('NIM/NIP');
         $data["output"] = $this->MUjianProposal->outputIndexMahasiswa($data['NIM']);
         $idUjian = $data["output"]->idUjianProposal;
-        // var_dump($idUjian);
-        // die();
         $ujianProposal = $this->MUjianProposal;
         $validation = $this->form_validation;
         $validation->set_rules($ujianProposal->rulesRevisi());
 
         if ($validation->run()) {
             $fileRevisi = $this->revisi();
-
-            $ujianProposal->save($idUjian, $fileRevisi);
+            $ujianProposal->mahasiswaRevisi($idUjian, $fileRevisi);
             $url = base_url('mahasiswa/CUjianProposal');
             echo "<script> alert('Revisi Proposal Berhasil Diajukan') </script>";
             redirect($url, 'refresh');

@@ -11,7 +11,7 @@ class CUjianProposal extends CI_Controller
             echo "<script> alert('Maaf Anda Tidak Memiliki Akses ke Halaman Ini!') </script>";
             redirect($url, 'refresh');
         };
-        $this->load->model(["MUjianProposal","MDosen","MNilaiProposal"]);
+        $this->load->model(["MUjianProposal","MDosen","MNilaiProposal","MPengajuanProposal"]);
         $this->load->library("form_validation");
         $this->load->helper(['url','download']);
     }
@@ -147,14 +147,14 @@ class CUjianProposal extends CI_Controller
 
     public function downloadFileProposal($NIM = NULL)
     {
-        $data['status'] = $this->MUjianProposal->getByNIM($NIM);
+        $data['status'] = $this->MPengajuanProposal->getByNIM($NIM);
         $file = $data['status']->fileProposal;
         force_download('./upload/ujianProposal/'.$file, NULL);
     }
 
     public function downloadSuratKetersediaanPembimbing1($NIM = NULL)
     {
-        $data['status'] = $this->MUjianProposal->getByNIM($NIM);
+        $data['status'] = $this->MPengajuanProposal->getByNIM($NIM);
         $file = $data['status']->suratKetersediaanPembimbing1;
         force_download('./upload/suratKetersediaanPembimbing1/'.$file, NULL);
     }

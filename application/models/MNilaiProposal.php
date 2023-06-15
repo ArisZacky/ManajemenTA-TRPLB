@@ -40,9 +40,27 @@ class MNilaiProposal extends CI_Model
         return $this->db->get('nilaiproposal')->result();
     }
 
-    public function getByNIM($idUjianProposal)
+    public function getByidUjianProposal($idUjianProposal)
     {
-        return $this->db->get_where("nilaiproposal", ["idUjianProposal" => $idUjianProposal])->row();
+        return $this->db->get_where("nilaiproposal", ["idUjianProposal" => $idUjianProposal])->result();
+    }
+
+    public function getAvg($idUjianProposal)
+    {
+        $this->db->select_avg('total');
+        $this->db->from('nilaiProposal');
+        $this->db->where('nilaiProposal.idUjianProposal', $idUjianProposal);
+        $query = $this->db->get()->row();
+        return $query;
+    }
+
+    public function countMahasiswa($idUjianProposal)
+    {
+        $this->db->select("COUNT(`nilaiProposal`.`idUjianProposal`) cnt");
+        $this->db->from('nilaiProposal');
+        $this->db->where('nilaiProposal.idUjianProposal', $idUjianProposal);
+        $query = $this->db->get()->row();
+        return $query;
     }
 
     public function outputIndexDosenSudahNilai($NIP)

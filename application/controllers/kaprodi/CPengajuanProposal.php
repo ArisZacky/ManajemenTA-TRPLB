@@ -70,14 +70,7 @@ class CPengajuanProposal extends CI_Controller
             $url = base_url('kaprodi/CpengajuanProposal/sudahDiterima');
             echo "<script> alert('Propsal berhasil di approve!') </script>";
             redirect($url, 'refresh');
-            // redirect('kaprodi/CpengajuanProposal/belumDiterima');
-            // echo $this->session->set_flashdata('success', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-            // <h3>Selamat</h3>
-            // <p>Data Berhasil Diedit!</p>');
         }
-        
-
-
     }
 
     public function add()

@@ -180,7 +180,8 @@
                       <td>:</td>
                       <td><?php if($output != null){ echo $output->fileRevisi;}else{ echo "";}?></td>
                     </tr>
-                    <?php if($count->cnt == 3){ ?>
+                    <?php var_dump ()?>
+                    <?php if($count->cnt == 3 && $output->status != 'Telah Selesai Ujian'){ ?>
                       <button class ="btn btn-primary" onclick="uploadRevisi(<?= $output->idUjianProposal;?>)" type="button" data-bs-toggle="modal" data-bs-target="#confirm-submit">Revisi Proposal</button>
                     <?php }?>
               </table>
@@ -200,17 +201,19 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="<?php echo base_url('mahasiswa/CUjianProposal/addRevisi'); ?>">
+          <?php echo form_open_multipart('mahasiswa/CUjianProposal/addRevisi');?>
+          <form action="<?php echo base_url('mahasiswa/CUjianProposal/addRevisi'); ?>" method="POST" enctype="multipart/form-data">
             <label for="fileProposal" class="">Upload Revisi</label>
             <input type="hidden" id="revisi-idUjianProposal" name="idUjianProposal">
             <input type="hidden" name="status" value="Tahap Revisi">
-              <input class="form-control" type="file" name="fileRevisi">
-            </form>
+            <input class="form-control" type="file" name="fileRevisi" required>
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <input type="submit" id="submit" class="btn btn-primary" value="Simpan"></input>
           </div>
+          </form>
         </div>
       </div>
     </div><!-- End Vertically centered Modal-->

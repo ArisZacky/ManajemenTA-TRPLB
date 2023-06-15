@@ -38,18 +38,21 @@ class MPengajuanTugasAkhir extends CI_Model
 public function rulesKaprodi()
 {
     return [
-        ['field' => 'idPengajuanTA',
-        'label' => 'idPengajuanTA',
+        ['field' => 'NIM',
+        'label' => 'NIM',
+        'rules' => 'required'],
+
+        ['field' => 'judulProposal',
+        'label' => 'judulProposal',
+        'rules' => 'required'],
+
+        ['field' => 'pembimbing1',
+        'label' => 'pembimbing1',
         'rules' => 'required'],
 
         ['field' => 'pembimbing2',
         'label' => 'pembimbing2',
         'rules' => 'required'],
-
-        ['field' => 'status',
-        'label' => 'status',
-        'rules' => 'required'],
-
     ];
 }
     public function getAll()
@@ -233,6 +236,16 @@ public function rulesKaprodi()
         $this->pembimbing1 = $post["pembimbing1"];
         $this->berkasProposal = $post["berkasProposal"];
         $this->status = $post["status"];
+        return $this->db->insert('pengajuanta', $this);
+    }
+
+    public function saveKaprodi()
+    {
+        $post = $this->input->post();
+        $this->NIM = $post["NIM"];
+        $this->judulProposal = $post["judulProposal"];
+        $this->pembimbing1 = $post["pembimbing1"];
+        $this->pembimbing1 = $post["pembimbing2"];
         return $this->db->insert('pengajuanta', $this);
     }
 

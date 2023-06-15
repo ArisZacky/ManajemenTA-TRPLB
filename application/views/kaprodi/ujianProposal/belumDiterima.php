@@ -95,7 +95,7 @@
                         <?php echo $row->modelProposal ?>
                       </td>
                       <td>
-                        <a class="btn btn-success" href="<?php echo base_url('dosen/CUjianProposal/nilaiProposal/'.$row->idUjianProposal1);?>">Nilai Proposal</a>
+                        <a class="btn btn-success" href="<?php echo base_url('kaprodi/CUjianProposal/proses/'.$row->idUjianProposal);?>">Terima Proposal</a>
                       </td>
                     </tr>
                   <?php 
