@@ -56,7 +56,9 @@
 
               <div class="tab-content pt-2" id="myTabContent">
                 <div class="tab-pane fade show active" id="pills-pembimbing1" role="tabpanel" aria-labelledby="pembimbing1-tab">
-                <button class ="btn btn-primary" onclick="uploadRevisi(<?= $pengajuan->idPengajuanTA;?>)" type="button" data-bs-toggle="modal" data-bs-target="#confirm-submit">Buat Bimbingan</button>
+                <button class ="btn btn-primary" onclick="uploadRevisi(<?= $pengajuan->idPengajuanTA;?>)" type="button" data-bs-toggle="modal" data-bs-target="#modalPembimbing1">Buat Bimbingan</button>
+                <h5>Nama Pembimbing : <?php echo $p1->namaDosen?></h5>
+                <h5>Judul Proposal  : <?php echo $pengajuan->judulProposal?></h5>
                   Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
                 </div>
                 <div class="tab-pane fade" id="pills-pembimbing2" role="tabpanel" aria-labelledby="profile-tab">
@@ -69,6 +71,32 @@
       </div>
     </section>
 
+<!-- MODAL BIMBINGAN -->
+    <div class="modal fade" id="modalPembimbing1" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Buat Revisi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <?php echo form_open_multipart('mahasiswa/CUjianProposal/addRevisi');?>
+          <form action="<?php echo base_url('mahasiswa/CUjianProposal/addRevisi'); ?>" method="POST" enctype="multipart/form-data">
+            <label for="fileProposal" class="">Upload Revisi</label>
+            <input type="hidden" id="revisi-idUjianProposal" name="idUjianProposal">
+            <input type="hidden" name="status" value="Tahap Revisi">
+            <input class="form-control" type="file" name="fileRevisi" required>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <input type="submit" id="submit" class="btn btn-primary" value="Simpan"></input>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div><!-- End Vertically centered Modal-->
+    
   </main><!-- End #main -->
 
   <!-- FOOTER -->

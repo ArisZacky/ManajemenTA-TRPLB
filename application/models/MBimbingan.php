@@ -35,6 +35,15 @@ class MBimbingan extends CI_Model
     {
         return $this->db->get_where("bimbingan", ["idBimbingan" => $id])->row();
     }
+
+    public function getByPembimbing1($idPengajuanTA, $NIP)
+    {
+        return $this->db->get_where("bimbingan", ["idPengajuanTA" => $idPengajuanTA, "NIP" => $NIP])->row();
+    }
+    public function getByPembimbing2($idPengajuanTA, $NIP)
+    {
+        return $this->db->get_where("bimbingan", ["idPengajuanTA" => $idPengajuanTA, "NIP" => $NIP])->row();
+    }
     
     public function save()
     {

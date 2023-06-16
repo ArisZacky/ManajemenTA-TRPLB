@@ -20,6 +20,10 @@ class CBimbingan extends CI_Controller
         $data['title'] = 'Bimbingan Tugas Akhir';
         $data['NIM'] = $this->session->userdata('NIM/NIP');
         $data["pengajuan"] = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
+        $data['p1'] = $this->MDosen->getById($data['pengajuan']->pembimbing1);
+        $data['p2'] = $this->MDosen->getById($data['pengajuan']->pembimbing2);
+        $data['b1'] = $this->MBimbingan->getByPembimbing1($data['pengajuan']->idPengajuanTA, $data['pengajuan']->pembimbing1);
+        $data['b2'] = $this->MBimbingan->getByPembimbing2($data['pengajuan']->idPengajuanTA, $data['pengajuan']->pembimbing2);
         // $data["status"] = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
         // $NIP = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
         // if($data["status"] != null){
