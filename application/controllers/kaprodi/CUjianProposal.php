@@ -83,8 +83,19 @@ class CUjianProposal extends CI_Controller
             $this->load->view("kaprodi/ujianProposal/proses", $data);
         }else{
             if($_POST['status'] == 'Telah Selesai Ujian'){
+                $this->db->trans_begin();
                 $ujianProposal->update();
                 $pengajuan->saveKaprodi();
+                if ($this->db->trans_status() === FALSE)
+                {
+                        $this->db->trans_rollback();
+                        echo "Gagal!";
+                }
+                else
+                {
+                        $this->db->trans_commit();
+                        echo "Berhasil";
+                }
                 
                 $url = base_url('kaprodi/CUjianProposal/sudahDiterima');
                 echo "<script> alert('Propsal berhasil di approve!') </script>";

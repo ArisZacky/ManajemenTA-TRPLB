@@ -11,7 +11,7 @@ class CBimbingan extends CI_Controller
             echo "<script> alert('Maaf Anda Tidak Memiliki Akses ke Halaman Ini!') </script>";
             redirect($url, 'refresh');
         };
-        $this->load->model(["MBimbingan","MDosen"]);
+        $this->load->model(["MBimbingan","MDosen","MPengajuanTugasAkhir"]);
         $this->load->library("form_validation");
     }
 
@@ -19,6 +19,7 @@ class CBimbingan extends CI_Controller
     {   
         $data['title'] = 'Bimbingan Tugas Akhir';
         $data['NIM'] = $this->session->userdata('NIM/NIP');
+        $data["pengajuan"] = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
         // $data["status"] = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
         // $NIP = $this->MPengajuanTugasAkhir->getByNIM($data['NIM']);
         // if($data["status"] != null){

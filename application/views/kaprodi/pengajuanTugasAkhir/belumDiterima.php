@@ -57,7 +57,7 @@
                       <th>Judul Proposal</th>
                       <th>Abstrak</th>
                       <th>Pembimbing 1</th>
-                      <th>Berkas Proposal</th>
+                      <th>File Tugas Akhir</th>
                       <th>Action</th>
                   </tr>
                 </thead>

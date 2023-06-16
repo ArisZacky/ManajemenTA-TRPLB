@@ -50,7 +50,6 @@ class CPengajuanTugasAkhir extends CI_Controller
         $status = $NIP->status;
         
         $data["pengajuan"] = $pengajuan->outputProsesKaprodi($idPengajuan);
-        $data['dosen'] = $this->MDosen->getAllPembimbing2($pembimbing1);
 
         if(!$data["pengajuan"]) show_404();
 

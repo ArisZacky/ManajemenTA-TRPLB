@@ -35,25 +35,30 @@
       </li><!-- End Pengajuan Tugas Akhir Nav --> 
 
       <li class="nav-item">
-        <a class="nav-link <?php if($title == 'Pengajuan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir'); ?>">
-          <i class="bi bi-card-list"></i>
-          <span>Pengajuan Tugas Akhir</span>
+        <a class="nav-link collapsed" data-bs-target="#tugasAkhir-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Tugas Akhir</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End Pengajuan Tugas Akhir Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link <?php if($title == 'Bimbingan Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('mahasiswa/CBimbingan'); ?>">
-          <i class="bi bi-file-earmark-text"></i>
-          <span>Bimbingan Tugas Akhir</span>
-        </a>
-      </li><!-- End Bimbingan Tugas Akhir Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link <?php if($title == 'Ujian Tugas Akhir'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('cdashboard'); ?>">
-          <i class="bi bi-journals"></i>
-          <span>Pengajuan Ujian Tugas Akhir</span>
-        </a>
-      </li><!-- End Pengajuan Ujian Tugas Akhir Nav -->
+        <ul id="tugasAkhir-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Pengajuan Tugas Akhir'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('mahasiswa/CPengajuanTugasAkhir'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Pengajuan Tugas Akhir</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Bimbingan Tugas Akhir'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('mahasiswa/CBimbingan'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Bimbingan Tugas Akhir</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Ujian Tugas Akhir'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('mahasiswa/CPengajuanTugasAkhir'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Ujian Tugas Akhir</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Pengajuan Tugas Akhir Nav --> 
     </ul>
 </aside><!-- End Sidebar Mahasiswa-->
 

@@ -42,105 +42,9 @@
       <div class="row">
 
       <?php if ($status == null) { ?>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Dosen Pembimbing</h5>
-              <!-- Default Table -->
-              <div class="row">
-                <div class="col">
-                <h5>Dosen Pembimbing 1</h5>
-                <table>
-                    <tr>
-                      <td>NIP</td>
-                      <td>:</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Nama Dosen</td>
-                      <td>:</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Email</td>
-                      <td>:</td>
-                      <td></td>
-                    </tr>
-                </table>
-                </div>
-                <div class="col">
-                <h5>Dosen Pembimbing 2</h5>
-                <table>
-                    <tr>
-                      <td>NIP</td>
-                      <td>:</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Nama Dosen</td>
-                      <td>:</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Email</td>
-                      <td>:</td>
-                      <td></td>
-                    </tr>
-                </table>
-                </div>
-              </div>             
-              <!-- End Default Table Example -->
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Mahasiswa</h5>
-
-              <!-- Default Table -->
-              <table>
-                  <tr>
-                    <td>Nama Mahasiswa</td>
-                    <td>:</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>NIM</td>
-                    <td>:</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Prodi</td>
-                    <td>:</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Email</td>
-                    <td>:</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Judul Proposal</td>
-                    <td>:</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Berkas Proposal</td>
-                    <td>:</td>
-                    <td></td>
-                  </tr>
-              </table>
-              <!-- End Default Table Example -->
-            </div>
-          </div>  
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Abstrak</h5>
-              <p></p>
-              <!-- End Default Table Example -->
-            </div>
-          </div>  
-          <a href="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir/add'); ?>" class="btn btn-primary">Buat Pengajuan Tugas Akhir</a>
+        <h1>Anda belum menyelesaikan ujian proposal!</h1>
         <?php } else {?>        
+          <?php var_dump($output);?>
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Dosen Pembimbing</h5>
@@ -148,22 +52,21 @@
                 <div class="row">
                   <div class="col">
                   <h5>Dosen Pembimbing 1</h5>
-                  <?php foreach($output as $outputs):?>
                   <table>
                       <tr>
                         <td>NIP</td>
                         <td>:</td>
-                        <td><?php echo $outputs->NIP1?></td>
+                        <td><?php echo $output->NIP1?></td>
                       </tr>
                       <tr>
                         <td>Nama Dosen</td>
                         <td>:</td>
-                        <td><?php echo $outputs->namaDosen1?></td>
+                        <td><?php echo $output->namaDosen1?></td>
                       </tr>
                       <tr>
                         <td>Email</td>
                         <td>:</td>
-                        <td><?php echo $outputs->emailDosen1?></td>
+                        <td><?php echo $output->emailDosen1?></td>
                       </tr>
                   </table>
                   </div>
@@ -173,17 +76,17 @@
                       <tr>
                         <td>NIP</td>
                         <td>:</td>
-                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $outputs->NIP2;}?> </td>
+                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $output->NIP2;}?> </td>
                       </tr>
                       <tr>
                         <td>Nama Dosen</td>
                         <td>:</td>
-                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $outputs->namaDosen2;}?></td>
+                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $output->namaDosen2;}?></td>
                       </tr>
                       <tr>
                         <td>Email</td>
                         <td>:</td>
-                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $outputs->emailDosen2;}?></td>
+                        <td><?php if($status->pembimbing2 == NULL){ echo "";}else{ echo $output->emailDosen2;}?></td>
                       </tr>
                   </table>
                   </div>
@@ -200,37 +103,37 @@
                   <tr>
                     <td>Nama Mahasiswa</td>
                     <td>:</td>
-                    <td><?php echo $outputs->namaMahasiswa?></td>
+                    <td><?php echo $output->namaMahasiswa?></td>
                   </tr>
                   <tr>
                     <td>NIM</td>
                     <td>:</td>
-                    <td><?php echo $outputs->NIM?></td>
+                    <td><?php echo $output->NIM?></td>
                   </tr>
                   <tr>
                     <td>Prodi</td>
                     <td>:</td>
-                    <td><?php echo $outputs->prodi?></td>
+                    <td><?php echo $output->prodi?></td>
                   </tr>
                   <tr>
                     <td>Email</td>
                     <td>:</td>
-                    <td><?php echo $outputs->email?></td>
+                    <td><?php echo $output->email?></td>
                   </tr>
                   <tr>
                     <td>Judul Proposal</td>
                     <td>:</td>
-                    <td><?php echo $outputs->judulProposal?></td>
+                    <td><?php echo $output->judulProposal?></td>
                   </tr>
                   <tr>
                     <td>Berkas Proposal</td>
                     <td>:</td>
-                    <td><?php echo $outputs->berkasProposal?></td>
+                    <td><?php echo $output->fileTugasAkhir?></td>
                   </tr>
                   <tr>
                     <td>Status</td>
                     <td>:</td>
-                    <td><?php echo $outputs->status?></td>
+                    <td><?php echo $output->status?></td>
                   </tr>
               </table>
               
@@ -241,12 +144,12 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Abstrak</h5>
-              <p><?php echo $outputs->abstrak?></p>
+              <p><?php echo $output->abstrak?></p>
               <!-- End Default Table Example -->
             </div>
-          </div>  
-          <?php endforeach;?>
-          <?php }?>
+          </div> 
+          <?php if($output->fileTugasAkhir == null){?><a href="<?php echo base_url('mahasiswa/CPengajuanTugasAkhir/add'); ?>" class="btn btn-primary">Buat Pengajuan Tugas Akhir</a>
+          <?php }}?>
       </div>
     </section>
 

@@ -180,7 +180,6 @@
                       <td>:</td>
                       <td><?php if($output != null){ echo $output->fileRevisi;}else{ echo "";}?></td>
                     </tr>
-                    <?php var_dump ()?>
                     <?php if($count->cnt == 3 && $output->status != 'Telah Selesai Ujian'){ ?>
                       <button class ="btn btn-primary" onclick="uploadRevisi(<?= $output->idUjianProposal;?>)" type="button" data-bs-toggle="modal" data-bs-target="#confirm-submit">Revisi Proposal</button>
                     <?php }?>

@@ -40,49 +40,59 @@ class CPengajuanTugasAkhir extends CI_Controller
     {
         $data['title'] = 'Pengajuan Tugas Akhir';
         $data['dosen'] = $this->MDosen->getAll();
+        $pengajuanTugasAkhir = $this->MPengajuanTugasAkhir;
 
-        $filename = str_replace('','', $this->session->userdata('NIM/NIP'));
+        $data['id'] = $this->MPengajuanTugasAkhir->getByNIM($this->session->userdata('NIM/NIP'));
+        $data['p1'] = $this->MDosen->getById($data['id']->pembimbing1);
+        $data['p2'] = $this->MDosen->getById($data['id']->pembimbing2);
+        $id = $data['id']->idPengajuanTA;
+
+
+        $validation = $this->form_validation;
+        $validation->set_rules($pengajuanTugasAkhir->rules());
+        if ($validation->run()) {
+            $fileTugasAkhir = $this->fileTugasAkhir();
+
+            $pengajuanTugasAkhir->updateMahasiswa($id, $fileTugasAkhir);
+            $url = base_url('mahasiswa/CPengajuanTugasAkhir');
+            echo "<script> alert('Tugas Akhir Berhasil Diajukan') </script>";
+            redirect($url, 'refresh');
+        }
+        // var_dump($data['p2']);
+        // die();
+
+        $this->load->view("mahasiswa/pengajuanTugasAkhir/create", $data);
+    }
+
+    public function fileTugasAkhir()
+    {
+        $filename = str_replace('','', 'PengajuanProposal_'.$this->session->userdata('NIM/NIP'));
         $config['upload_path']          = FCPATH.'/upload/pengajuanTugasAkhir/';
 		$config['allowed_types']        = 'pdf';
 		$config['file_name']            = $filename;
 		$config['overwrite']            = true;
 		$config['max_size']             = 10000; // 10MB
-
         $this->load->library('upload', $config);
-        if ( ! $this->upload->do_upload('berkasProposal'))
-        {
-            echo "GAGAL COY";
+
+        if(!empty($_FILES['fileTugasAkhir'])){
+            if(!$this->upload->do_upload('fileTugasAkhir')){
+                $data['error'] = $this->upload->display_errors();
+                return false;
+            }else{
+                $uploadedData = $this->upload->data();
+                $fileTugasAkhir = $uploadedData['file_name'];
+                return $fileTugasAkhir;
+            }
+        }else{
+            $data['error'] = $this->upload->display_errors();
+            return false;
         }
-        else
-        {
-            $berkasProposal = $this->upload->data();
-            $berkasProposal = $berkasProposal['file_name'];
-            $NIM = $this->input->post('NIM',TRUE);
-            $judulProposal = $this->input->post('judulProposal',TRUE);
-            $abstrak = $this->input->post('abstrak',TRUE);
-            $pembimbing1 = $this->input->post('pembimbing1',TRUE);
-            $status = $this->input->post('status',TRUE);
+    } 
 
-            $inputan = array(
-                'NIM'=> $NIM,
-                'judulProposal' => $judulProposal,
-                'abstrak' => $abstrak,
-                'pembimbing1' => $pembimbing1,
-                'berkasProposal' => $berkasProposal,
-                'status' => $status
-            );
-            $this->db->insert('pengajuanta', $inputan);
-            $url = base_url('mahasiswa/CPengajuanTugasAkhir');
-            echo "<script> alert('Tugas Akhir Berhasil Diajukan') </script>";
-            redirect($url, 'refresh');
-        }
-
-        $this->load->view("mahasiswa/pengajuanTugasAkhir/create", $data);
-    }
-
-    public function edit($NIP = null)
+    public function edit($idPengajuanTA = null)
     {
-
+        // $data['title'] = 'Pengajuan Tugas Akhir';
+        // $this->load->view("mahasiswa/pengajuanTugasAkhir/create", $data);
     }
 
     public function delete($NIP=null)

@@ -69,23 +69,20 @@
                   </div>
                 </div>
                 <div class="col-md-12">
+                  <label for="modelTa" class="form-label">Model Tugas Akhir</label>
+                  <input type="text" class="form-control" id="modelTa" name="modelTa" value="<?php echo $pengajuan->modelTa; ?>">
+                </div>
+                <div class="col-md-12">
                   <label for="pembimbing1" class="form-label">Pembimbing 1</label>
                   <input type="text" class="form-control" id="pembimbing1" name="pembimbing1" value="<?php echo $pengajuan->namaDosen1; ?>" readonly>
                 </div>
                 <div class="col-md-12">
-                  <label for="pembimbing1" class="form-label">Berkas : </label>
-                  <a href=""><?php echo $pengajuan->berkasProposal; ?></a>
+                  <label for="pembimbing2" class="form-label">Pembimbing 2</label>
+                  <input type="text" class="form-control" id="pembimbing2" name="pembimbing2" value="<?php echo $pengajuan->namaDosen2; ?>" readonly>
                 </div>
-                <div class="row mb-3">
-                  <label for="pembimbing2" class="col-sm-2 col-form-label">Dosen Pembimbing 2</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="pembimbing2" id="pembimbing2">
-                        <option value="">-- Pilih Dosen Pembimbing 2 --</option>
-                    <?php foreach($dosen as $row):?>
-                        <option value="<?php echo $row->NIP; ?>"><?php echo $row->namaDosen?> - <?php echo $row->NIP?></option>
-                    <?php endforeach;?>
-                    </select>                    
-                  </div>
+                <div class="col-md-12">
+                  <label for="pembimbing1" class="form-label">Berkas : </label>
+                  <a href=""><?php echo $pengajuan->fileTugasAkhir; ?></a>
                 </div>
                 <div class="row mb-3">
                   <label for="pembimbing1" class="col-sm-2 col-form-label">Status</label>

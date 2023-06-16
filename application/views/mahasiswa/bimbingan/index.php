@@ -40,7 +40,32 @@
 
     <section class="section dashboard">
       <div class="row">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Bimbingan Tugas Akhir</h5>
 
+              <!-- Pills Tabs -->
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-pembimbing1-tab" data-bs-toggle="pill" data-bs-target="#pills-pembimbing1" type="button" role="tab" aria-controls="pills-pembimbing1" aria-selected="true">Pembimbing 1</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-pembimbing2-tab" data-bs-toggle="pill" data-bs-target="#pills-pembimbing2" type="button" role="tab" aria-controls="pills-pembimbing2" aria-selected="false">Pembimbing 2</button>
+                </li>
+              </ul>
+
+              <div class="tab-content pt-2" id="myTabContent">
+                <div class="tab-pane fade show active" id="pills-pembimbing1" role="tabpanel" aria-labelledby="pembimbing1-tab">
+                <button class ="btn btn-primary" onclick="uploadRevisi(<?= $pengajuan->idPengajuanTA;?>)" type="button" data-bs-toggle="modal" data-bs-target="#confirm-submit">Buat Bimbingan</button>
+                  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+                </div>
+                <div class="tab-pane fade" id="pills-pembimbing2" role="tabpanel" aria-labelledby="profile-tab">
+                  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                </div>
+              </div><!-- End Pills Tabs -->
+
+            </div>
+          </div>
       </div>
     </section>
 
@@ -56,14 +81,7 @@
   <!-- END LOAD JAVASCRIPT -->
 
 
-  <script language= "javascript" >
-  function hapusdata(NIP){
-    if(confirm("Apakah yakin menghapus data ini ?")){
-      window.open("<?php echo base_url()?>admin/CCrudDosen/delete/"+NIP,"_self");
-    }
-  }
 
-</script>
 </body>
 
 </html>

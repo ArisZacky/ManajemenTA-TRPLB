@@ -75,7 +75,7 @@
                 <div class="row mb-3">
                   <label for="judulProposal" class="col-sm-2 col-form-label">Judul Proposal</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="judulProposal" id="judulProposal" required>
+                    <input type="text" class="form-control" name="judulProposal" id="judulProposal" required value="<?php echo $id->judulProposal ?>" readonly>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -85,26 +85,31 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="pembimbing1" class="col-sm-2 col-form-label">Dosen Pembimbing 1</label>
+                  <label for="pembimbing1" class="col-sm-2 col-form-label">Pembimbing 1</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="pembimbing1" id="pembimbing1" required>
-                        <option value="">Pilih Dosen Pembimbing 1</option>
-                    <?php foreach($dosen as $row):?>
-                        <option value="<?php echo $row->NIP; ?>"><?php echo $row->namaDosen?> - <?php echo $row->NIP?></option>
-                    <?php endforeach;?>
-                    </select>                    
+                    <input type="text" class="form-control" name="pembimbing1" id="pembimbing1" required value="<?php echo $p1->namaDosen ?>" readonly>
                   </div>
                 </div>
-                <!-- <div class="row mb-3">
-                  <label for="judulProposal" class="col-sm-2 col-form-label">Berkas Proposal</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="berkasProposal" id="berkasProposal">
-                  </div>
-                </div> -->
                 <div class="row mb-3">
-                  <label for="berkasProposal" class="col-sm-2 col-form-label">Berkas Proposal</label>
+                  <label for="pembimbing2" class="col-sm-2 col-form-label">Pembimbing 2</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile" name="berkasProposal" id="berkasProposal" required>
+                    <input type="text" class="form-control" name="pembimbing2" id="pembimbing2" required value="<?php echo $p2->namaDosen ?>" readonly>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="fileTugasAkhir" class="col-sm-2 col-form-label">File Tugas Akhir</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile" name="fileTugasAkhir" id="fileTugasAkhir" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="modelTa" class="col-sm-2 col-form-label">Model Tugas Akhir</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="modelTa" id="modelTa">
+                        <option value="">-- Pilih Model Tugas Akhir --</option>
+                        <option value="Analisa Sistem" id="Analisa Sistem">Analisa Sistem</option>
+                        <option value="Pembuatan Alat" id="Pembuatan Alat">Pembuatan Alat</option>
+                    </select>                    
                   </div>
                 </div>
                 <input type="hidden" name="status" id="status" value="Diproses">

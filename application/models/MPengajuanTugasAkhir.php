@@ -5,27 +5,16 @@ class MPengajuanTugasAkhir extends CI_Model
     public function rules()
 {
     return [
-        ['field' => 'NIM',
-        'label' => 'NIM',
-        'rules' => 'required'],
-
-        ['field' => 'judulProposal',
-        'label' => 'judulProposal',
-        'rules' => 'required'],
 
         ['field' => 'abstrak',
         'label' => 'abstrak',
         'rules' => 'required'],
 
-        ['field' => 'pembimbing1',
-        'label' => 'pembimbing1',
-        'rules' => 'required'],
+        ['field' => 'fileTugasAkhir',
+        'label' => 'fileTugasAkhir'],
 
-        ['field' => 'pembimbing2',
-        'label' => 'pembimbing2'],
-
-        ['field' => 'berkasProposal',
-        'label' => 'berkasProposal',
+        ['field' => 'modelTa',
+        'label' => 'modelTa',
         'rules' => 'required'],
 
         ['field' => 'status',
@@ -55,6 +44,15 @@ public function rulesKaprodi()
         'rules' => 'required'],
     ];
 }
+
+public function rulesValidasi()
+{
+    return [
+        ['field' => 'status',
+        'label' => 'status',
+        'rules' => 'required']
+    ];
+}
     public function getAll()
     {
         return $this->db->get('pengajuanta')->result();
@@ -67,7 +65,7 @@ public function rulesKaprodi()
 
     public function outputIndex($NIM, $NIP1, $NIP2)
     {
-        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1', 
         dosen2.NIP as 'NIP2', dosen2.namaDosen as 'namaDosen2', dosen2.email as 'emailDosen2'");
         $this->db->from('pengajuanta');
@@ -78,7 +76,7 @@ public function rulesKaprodi()
         $this->db->where('dosen1.NIP', $NIP1);
         $this->db->where('dosen2.NIP', $NIP2);        
         // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
-        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         // dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1', 
         // dosen2.NIP as 'NIP2', dosen2.namaDosen as 'namaDosen2', dosen2.email as 'emailDosen2'
         // FROM pengajuanta
@@ -87,22 +85,13 @@ public function rulesKaprodi()
         // INNER JOIN dosen as dosen2  ON pengajuanta.pembimbing2 = dosen2.NIP
         // WHERE pengajuanta.NIM = '".$NIM."' AND dosen1.NIP = '".$NIP1."' AND dosen2.NIP = '".$NIP2."'";
 
-        $query = $this->db->get();
-        if($query->num_rows()>0)
-        {
-            foreach($query->result() as $data)
-            {
-                $hasil[]=$data;	
-            }
-        }else{
-            $hasil = '';
-        }
-        return $hasil;
+        $query = $this->db->get()->row();
+        return $query;
     }
 
     public function outputIndex1($NIM, $NIP1)
     {
-        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'");
         $this->db->from('pengajuanta');
         $this->db->join('mahasiswa as mahasiswa1', 'pengajuanta.NIM = mahasiswa1.NIM');
@@ -110,7 +99,7 @@ public function rulesKaprodi()
         $this->db->where('pengajuanta.NIM', $NIM);
         $this->db->where('dosen1.NIP', $NIP1);    
         // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
-        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         // dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'
         // FROM pengajuanta
         // INNER JOIN mahasiswa as mahasiswa1 ON pengajuanta.NIM = mahasiswa1.NIM
@@ -118,30 +107,22 @@ public function rulesKaprodi()
 
         // WHERE pengajuanta.NIM = '".$NIM."' AND dosen1.NIP = '".$NIP1."';
 
-        $query = $this->db->get();
-        if($query->num_rows()>0)
-        {
-            foreach($query->result() as $data)
-            {
-                $hasil[]=$data;	
-            }
-        }else{
-            $hasil = '';
-        }
-        return $hasil;
+        $query = $this->db->get()->row();
+        return $query;
     }
     
     public function outputIndexKaprodiBelumDiterima()
     {
-        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, pembimbing1, pembimbing2, berkasProposal, status,
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, pembimbing1, pembimbing2, fileTugasAkhir, status,
         dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'");
         $this->db->from('pengajuanta');
         $this->db->join('mahasiswa as mahasiswa1', 'pengajuanta.NIM = mahasiswa1.NIM');
         $this->db->join('dosen as dosen1', 'pengajuanta.pembimbing1= dosen1.NIP');
         $this->db->where('pengajuanta.status', 'Diproses');
+        $this->db->where('pengajuanta.fileTugasAkhir IS NOT NULL');
         // $this->db->where('dosen1.NIP', $NIP1);    
         // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
-        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         // dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'
         // FROM pengajuanta
         // INNER JOIN mahasiswa as mahasiswa1 ON pengajuanta.NIM = mahasiswa1.NIM
@@ -163,7 +144,7 @@ public function rulesKaprodi()
     }
     public function outputIndexKaprodiSudahDiterima()
     {
-        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, pembimbing1, pembimbing2, berkasProposal, status,
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, pembimbing1, pembimbing2, fileTugasAkhir, status,
         dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1',
         dosen2.NIP as 'NIP2', dosen2.namaDosen as 'namaDosen2', dosen2.email as 'emailDosen2'");
         $this->db->from('pengajuanta');
@@ -173,7 +154,7 @@ public function rulesKaprodi()
         $this->db->where('pengajuanta.status', 'Diterima');
         // $this->db->where('dosen1.NIP', $NIP1);    
         // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
-        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         // dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'
         // FROM pengajuanta
         // INNER JOIN mahasiswa as mahasiswa1 ON pengajuanta.NIM = mahasiswa1.NIM
@@ -196,15 +177,17 @@ public function rulesKaprodi()
 
     public function outputProsesKaprodi($idPengajuanTA)
     {
-        $this->db->select("idPengajuanTA, pengajuanta.NIM, mahasiswa1.namaMahasiswa, judulProposal, abstrak, pembimbing1, pembimbing2, berkasProposal, status,
-        dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'");
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, mahasiswa1.namaMahasiswa, judulProposal, abstrak, pembimbing1, pembimbing2, fileTugasAkhir, modelTa, status,
+        dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1',
+        dosen2.NIP as 'NIP2', dosen2.namaDosen as 'namaDosen2', dosen2.email as 'emailDosen2'");
         $this->db->from('pengajuanta');
         $this->db->join('mahasiswa as mahasiswa1', 'pengajuanta.NIM = mahasiswa1.NIM');
         $this->db->join('dosen as dosen1', 'pengajuanta.pembimbing1 = dosen1.NIP');
+        $this->db->join('dosen as dosen2', 'pengajuanta.pembimbing2 = dosen2.NIP');
         $this->db->where('idPengajuanTA', $idPengajuanTA);
         // $this->db->where('dosen1.NIP', $NIP1);    
         // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
-        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         // dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1'
         // FROM pengajuanta
         // INNER JOIN mahasiswa as mahasiswa1 ON pengajuanta.NIM = mahasiswa1.NIM
@@ -234,7 +217,7 @@ public function rulesKaprodi()
         $this->judulProposal = $post["judulProposal"];
         $this->abstrak = $post["abstrak"];
         $this->pembimbing1 = $post["pembimbing1"];
-        $this->berkasProposal = $post["berkasProposal"];
+        $this->fileTugasAkhir = $post["fileTugasAkhir"];
         $this->status = $post["status"];
         return $this->db->insert('pengajuanta', $this);
     }
@@ -245,7 +228,7 @@ public function rulesKaprodi()
         $this->NIM = $post["NIM"];
         $this->judulProposal = $post["judulProposal"];
         $this->pembimbing1 = $post["pembimbing1"];
-        $this->pembimbing1 = $post["pembimbing2"];
+        $this->pembimbing2 = $post["pembimbing2"];
         return $this->db->insert('pengajuanta', $this);
     }
 
@@ -257,10 +240,25 @@ public function rulesKaprodi()
         // $this->judulProposal = $post["judulProposal"];
         // $this->prodi = $post["abstrak"];
         // $this->pembimbing1 = $post["pembimbing1"];
-        $this->pembimbing2 = $post["pembimbing2"];
+        // $this->pembimbing2 = $post["pembimbing2"];
         // $this->berkasProposal = $post["berkasProposal"];
         $this->status = $post["status"];
         return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
+    }
+
+    public function updateMahasiswa($idPengajuanTA, $fileTugasAkhir)
+    {
+        $post = $this->input->post();
+        // $this->idPengajuanTA = $post["idPengajuanTA"];
+        // $this->NIM = $post["NIM"];
+        // $this->judulProposal = $post["judulProposal"];
+        $this->abstrak = $post["abstrak"];
+        // $this->pembimbing1 = $post["pembimbing1"];
+        // $this->pembimbing2 = $post["pembimbing2"];
+        $this->fileTugasAkhir = $fileTugasAkhir;
+        $this->modelTa = $post["modelTa"];
+        $this->status = $post["status"];
+        return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $idPengajuanTA));
     }
 
     // public function kaprodiTerima()
