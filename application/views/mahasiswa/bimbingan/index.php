@@ -56,13 +56,101 @@
 
               <div class="tab-content pt-2" id="myTabContent">
                 <div class="tab-pane fade show active" id="pills-pembimbing1" role="tabpanel" aria-labelledby="pembimbing1-tab">
-                <button class ="btn btn-primary" onclick="uploadRevisi(<?= $pengajuan->idPengajuanTA;?>)" type="button" data-bs-toggle="modal" data-bs-target="#modalPembimbing1">Buat Bimbingan</button>
+                <!-- uploadBimbingan() -->
+                <button class ="btn btn-primary" onclick="bimbingan('<?= $pengajuan->idPengajuanTA?>', '<?=$p1->namaDosen?>', '<?=$p1->NIP?>')" type="button" data-bs-toggle="modal" data-bs-target="#modalPembimbing1">Buat Bimbingan</button>
                 <h5>Nama Pembimbing : <?php echo $p1->namaDosen?></h5>
                 <h5>Judul Proposal  : <?php echo $pengajuan->judulProposal?></h5>
-                  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+                
+                  <!-- Default Table -->
+                  <table class="table">
+                    <thead>
+                      <tr>
+                          <th>No</th>
+                          <th>Tanggal</th>
+                          <th>Keterangan Bimbingan</th>
+                          <th>File Bimbingan</th>
+                          <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        if(empty($b1)){
+                          echo "";
+                        }else{
+                        $no=1;
+                        foreach ($b1 as $row): ?>
+                        <tr>
+                          <td>
+                            <?php echo $no ?>
+                          </td>
+                          <td>
+                            <?php echo $row->tanggal ?>
+                          </td>
+                          <td>
+                            <?php echo $row->keteranganRevisi ?>
+                          </td>
+                          <td>
+                            <?php echo $row->berkasBimbingan ?>
+                          </td>
+                          <td>
+                            <?php echo $row->status ?>
+                          </td>
+                        </tr>
+                      <?php 
+                        $no++;
+                        endforeach;
+                      } ?>
+                    </tbody>
+                  </table>
+                  <!-- End Default Table Example -->
                 </div>
                 <div class="tab-pane fade" id="pills-pembimbing2" role="tabpanel" aria-labelledby="profile-tab">
-                  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                <button class ="btn btn-primary" onclick="bimbingan('<?= $pengajuan->idPengajuanTA?>', '<?=$p2->namaDosen?>', '<?=$p2->NIP?>')" type="button" data-bs-toggle="modal" data-bs-target="#modalPembimbing1">Buat Bimbingan</button>
+                <h5>Nama Pembimbing : <?php echo $p2->namaDosen?></h5>
+                <h5>Judul Proposal  : <?php echo $pengajuan->judulProposal?></h5>
+                  <!-- Default Table -->
+                  <table class="table">
+                    <thead>
+                      <tr>
+                          <th>No</th>
+                          <th>Tanggal</th>
+                          <th>Keterangan Bimbingan</th>
+                          <th>File Bimbingan</th>
+                          <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        if(empty($b2)){
+                          echo "";
+                        }else{
+                        $no=1;
+                        foreach ($b2 as $row2): ?>
+                        <tr>
+                          <td>
+                            <?php echo $no ?>
+                          </td>
+                          <td>
+                            <?php echo $row2->tanggal ?>
+                          </td>
+                          <td>
+                            <?php echo $row2->keteranganRevisi ?>
+                          </td>
+                          <td>
+                            <?php echo $row2->berkasBimbingan ?>
+                          </td>
+                          <td>
+                            <?php echo $row2->status ?>
+                          </td>
+                        </tr>
+                      <?php 
+                        $no++;
+                        endforeach;
+                      } ?>
+                    </tbody>
+                  </table>
+                  <!-- End Default Table Example -->
+
                 </div>
               </div><!-- End Pills Tabs -->
 
@@ -71,22 +159,68 @@
       </div>
     </section>
 
-<!-- MODAL BIMBINGAN -->
+  <!-- MODAL BIMBINGAN -->
     <div class="modal fade" id="modalPembimbing1" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Buat Revisi</h5>
+            <h5 class="modal-title">Buat Bimbingan</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-          <?php echo form_open_multipart('mahasiswa/CUjianProposal/addRevisi');?>
-          <form action="<?php echo base_url('mahasiswa/CUjianProposal/addRevisi'); ?>" method="POST" enctype="multipart/form-data">
-            <label for="fileProposal" class="">Upload Revisi</label>
-            <input type="hidden" id="revisi-idUjianProposal" name="idUjianProposal">
-            <input type="hidden" name="status" value="Tahap Revisi">
-            <input class="form-control" type="file" name="fileRevisi" required>
-            
+          <?php echo form_open_multipart('mahasiswa/CBimbingan/add');?>
+          <form action="<?php echo base_url('mahasiswa/CBimbingan/add'); ?>" method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="revisi-idPengajuanTA" name="idPengajuanTA" value="">
+            <input type="hidden" name="status" value="Diproses">
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">NIM</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="" id="" disabled value="<?php echo $this->session->userdata('NIM/NIP') ?>">
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">Nama</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="" id="" disabled value="<?php echo $this->session->userdata('nama') ?>">
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">Prodi</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="" id="" disabled value="<?php echo $this->session->userdata('prodi') ?>">
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">Pembimbing</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="pembimbing" id="pembimbing" value="" disabled>
+                  </div>
+            </div>
+            <input type="hidden" name="NIP" id="NIP" value="">
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">Judul Tugas Akhir</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="" id="" disabled value="<?php echo $pengajuan->judulProposal ?>">
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">Tanggal Bimbingan</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control" name="tanggal">
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">Berkas Bimbingan</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" name="berkasBimbingan" required>
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">Keterangan Revisi</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="keteranganRevisi">
+                  </div>
+            </div>            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -98,7 +232,21 @@
     </div><!-- End Vertically centered Modal-->
     
   </main><!-- End #main -->
+  <script language= "javascript" >
+    function bimbingan(id, nama, nip){
+      // alert('WOI')
+      document.getElementById('revisi-idPengajuanTA').value = id;
+      document.getElementById('pembimbing').value = nama;
+      document.getElementById('NIP').value = nip;
+    }
 
+  </script>
+  <script language= "javascript" >
+    function tes(){
+      alert("tes")
+    }
+
+  </script>
   <!-- FOOTER -->
   <?php $this->load->view('layouts/footer') ?>
   <!-- END FOOTER -->
