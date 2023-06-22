@@ -31,9 +31,11 @@ class CLogin extends CI_Controller
                 //Masasiswa
                 if ($hasil['level'] == 'Mahasiswa') {
                     $level = $hasil['level'];
+                    $idLogin = $hasil['idLogin'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
+                    $this->session->set_userdata('idLogin', $idLogin);
 
                     $sql = "SELECT * FROM mahasiswa WHERE email = '" . $emailInput . "'";
                     $query = $this->db->query($sql);
@@ -49,9 +51,11 @@ class CLogin extends CI_Controller
                     redirect('cdashboard');
                 } elseif ($hasil['level'] == 'Dosen') {
                     $level = $hasil['level'];
+                    $idLogin = $hasil['idLogin'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
+                    $this->session->set_userdata('idLogin', $idLogin);
 
                     $sql = "SELECT * FROM dosen WHERE email = '" . $emailInput . "'";
                     $query = $this->db->query($sql);
@@ -67,9 +71,11 @@ class CLogin extends CI_Controller
                     redirect('cdashboard');
                 } elseif ($hasil['level'] == 'Kaprodi') {
                     $level = $hasil['level'];
+                    $idLogin = $hasil['idLogin'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
+                    $this->session->set_userdata('idLogin', $idLogin);
 
                     $sql = "SELECT * FROM kaprodi WHERE email = '" . $emailInput . "'";
                     $query = $this->db->query($sql);
@@ -88,9 +94,11 @@ class CLogin extends CI_Controller
                 }
                 elseif ($hasil['level'] == 'Admin') {
                     $level = $hasil['level'];
+                    $idLogin = $hasil['idLogin'];
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('email', $emailInput);
                     $this->session->set_userdata('level', $level);
+                    $this->session->set_userdata('idLogin', $idLogin);
 
                     // $sql = "SELECT * FROM admin WHERE email = '" . $emailInput . "'";
                     // $query = $this->db->query($sql);
