@@ -44,8 +44,8 @@ class CUjianProposal extends CI_Controller
         $pengajuan = $this->MPengajuanTugasAkhir;
         $validation = $this->form_validation;
         $validation->set_rules($ujianProposal->rulesKaprodi());
-        $validation2 = $this->form_validation;
-        $validation2->set_rules($pengajuan->rulesKaprodi());
+        // $validation2 = $this->form_validation;
+        // $validation2->set_rules($pengajuan->rulesKaprodi());
 
         $avgNilai = $nilaiProposal->getAvg($idUjianProposal);
         // var_dump($avgNilai->total);

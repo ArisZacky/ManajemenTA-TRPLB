@@ -21,8 +21,9 @@ class CUjianProposal extends CI_Controller
         $data['title'] = 'Ujian Proposal';
         $data['NIM'] = $this->session->userdata('NIM/NIP');
         $data["output"] = $this->MUjianProposal->outputIndexMahasiswa($data['NIM']);
-
-        $data["count"] = $this->MNilaiProposal->countMahasiswa($data["output"]->idUjianProposal);
+        if($data["output"]){
+            $data["count"] = $this->MNilaiProposal->countMahasiswa($data["output"]->idUjianProposal);
+        }
         // var_dump($data["count"]);
         // die();
         // var_dump($data["output"]);

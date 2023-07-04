@@ -131,6 +131,7 @@ public function rulesKaprodi()
         $this->db->join('mahasiswa as mahasiswa1', 'pengajuanproposal.NIM = mahasiswa1.NIM');
         $this->db->join('dosen as dosen1', 'pengajuanproposal.pembimbing1 = dosen1.NIP');
         $this->db->where('pengajuanproposal.status', 'Diterima');
+        $this->db->order_by('idProposal', 'ASC');
         // $this->db->where('dosen1.NIP', $NIP1);    
         // SINTAKS DIATAS AKAN MENGHASILKAN QUERY SEPERTI
         // "SELECT idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, berkasProposal, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 

@@ -40,6 +40,9 @@
 
     <section class="section dashboard">
       <div class="row">
+      <?php if ($output == null) { ?>
+        <h1>Anda belum menyelesaikan pengajuan proposal!</h1>
+        <?php } else {?>   
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Penguji</h5>
@@ -186,7 +189,8 @@
               </table>
               <!-- End Default Table Example -->
             </div>
-          </div>  
+          </div>
+          <?php } ?>
       </div>
     </section>
 

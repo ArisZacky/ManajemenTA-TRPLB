@@ -90,7 +90,7 @@
                     <select class="form-select" aria-label="Default select example" name="status" id="status"  onchange="showHide(this.value)">
                         <option value="">-- Pilih Status --</option>
                         <option value="Diterima" id="Diterima">Diterima</option>
-                        <option value="Diterima Dengan Catatan" id="Diterima Dengan Catatan">Diterima dengan Catatan</option>
+                        <!-- <option value="Diterima Dengan Catatan" id="Diterima Dengan Catatan">Diterima dengan Catatan</option> -->
                     </select>                    
                   </div>
                 </div>
