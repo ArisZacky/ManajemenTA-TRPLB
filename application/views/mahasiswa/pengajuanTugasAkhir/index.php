@@ -44,7 +44,6 @@
       <?php if ($status == null) { ?>
         <h1>Anda belum menyelesaikan ujian proposal!</h1>
         <?php } else {?>        
-          <?php var_dump($output);?>
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Dosen Pembimbing</h5>
@@ -131,9 +130,29 @@
                     <td><?php echo $output->fileTugasAkhir?></td>
                   </tr>
                   <tr>
+                    <td>Model Tugas Akhir</td>
+                    <td>:</td>
+                    <td><?php echo $output->modelTa?> </td>
+                  </tr>
+                  <tr>
+                    <td>Surat Kesediaan Pembimbing 1</td>
+                    <td>:</td>
+                    <td><?php echo $output-> suratKesediaanPembimbing1 ?></td>
+                  </tr>
+                  <tr>
+                    <td>Surat Kesediaan Pembimbing 2</td>
+                    <td>:</td>
+                    <td><?php echo $output-> suratKesediaanPembimbing2 ?></td>
+                  </tr>
+                  <tr>
                     <td>Status</td>
                     <td>:</td>
                     <td><?php echo $output->status?></td>
+                  </tr>
+                  <tr>
+                    <td>Status Bimbingan</td>
+                    <td>:</td>
+                    <td><?php echo $output->statusBimbingan?></td>
                   </tr>
               </table>
               

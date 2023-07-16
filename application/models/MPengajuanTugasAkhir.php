@@ -53,6 +53,15 @@ public function rulesValidasi()
         'rules' => 'required']
     ];
 }
+public function rulesSelesaiBimbingan()
+{
+    return [
+        ['field' => 'statusBimbingan',
+        'label' => 'statusBimbingan',
+        'rules' => 'required']
+    ];
+}
+
     public function getAll()
     {
         return $this->db->get('pengajuanta')->result();
@@ -65,7 +74,7 @@ public function rulesValidasi()
 
     public function outputIndex($NIM, $NIP1, $NIP2)
     {
-        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, status, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
+        $this->db->select("idPengajuanTA, pengajuanta.NIM, judulProposal, abstrak, fileTugasAkhir, modelTa, suratKesediaanPembimbing1, suratKesediaanPembimbing2, status, statusBimbingan, mahasiswa1.namaMahasiswa, mahasiswa1.prodi, mahasiswa1.email, 
         dosen1.NIP as 'NIP1', dosen1.namaDosen as 'namaDosen1', dosen1.email as 'emailDosen1', 
         dosen2.NIP as 'NIP2', dosen2.namaDosen as 'namaDosen2', dosen2.email as 'emailDosen2'");
         $this->db->from('pengajuanta');
@@ -246,7 +255,7 @@ public function rulesValidasi()
         return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $post['idPengajuanTA']));
     }
 
-    public function updateMahasiswa($idPengajuanTA, $fileTugasAkhir)
+    public function updateMahasiswa($idPengajuanTA, $fileTugasAkhir, $filePembimbing1, $filePembimbing2)
     {
         $post = $this->input->post();
         // $this->idPengajuanTA = $post["idPengajuanTA"];
@@ -257,7 +266,16 @@ public function rulesValidasi()
         // $this->pembimbing2 = $post["pembimbing2"];
         $this->fileTugasAkhir = $fileTugasAkhir;
         $this->modelTa = $post["modelTa"];
+        $this->suratKesediaanPembimbing1 = $filePembimbing1;
+        $this->suratKesediaanPembimbing2 = $filePembimbing2;
         $this->status = $post["status"];
+        return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $idPengajuanTA));
+    }
+
+    public function updateSelesaiBimbingan($idPengajuanTA)
+    {
+        $post = $this->input->post();
+        $this->statusBimbingan = $post["statusBimbingan"];
         return $this->db->update('pengajuanta', $this, array('idPengajuanTA' => $idPengajuanTA));
     }
 

@@ -33,7 +33,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item">Pengajuan Proposal</li>
+          <li class="breadcrumb-item">Ujian Proposal</li>
           <li class="breadcrumb-item active">Belum Diterima</li>
         </ol>
       </nav>
@@ -46,7 +46,7 @@
       </div>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Ujian Tugas Akhir</h5>
+              <h5 class="card-title">Data Ujian Proposal</h5>
               <!-- Default Table -->
               <table class="table">
                 <thead>

@@ -52,7 +52,7 @@
             </a>
           </li>
           <li>
-            <a class="<?php if($title == 'Ujian Tugas Akhir'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('mahasiswa/CPengajuanTugasAkhir'); ?>">
+            <a class="<?php if($title == 'Ujian Tugas Akhir'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('mahasiswa/CUjianTugasAkhir'); ?>">
               <i class="bi bi-circle"></i>
               <span>Ujian Tugas Akhir</span>
             </a>
@@ -98,11 +98,25 @@
       </li><!-- End Pengajuan Tugas Akhir Nav -->    
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?php echo base_url('cdashboard'); ?>">
-          <i class="bi bi-clipboard"></i>
-          <span>Mahasiswa Bimbingan</span>
+        <a class="nav-link collapsed" data-bs-target="#bimbingan-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-clipboard"></i><span>Mahasiswa Bimbingan</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End Mahasiswa Bimbingan Nav -->
+        <ul id="bimbingan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Bimbingan Belum Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('dosen/CBimbingan/index'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Belum Diterima</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Bimbingan Sudah Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('dosen/CBimbingan/sudahDinilai'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Sudah Diterima</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Pengajuan Tugas Akhir Nav -->    
+
     </ul>
 
   </aside><!-- End Sidebar Dosen-->
@@ -182,11 +196,36 @@
       </li><!-- End Pengajuan Tugas Akhir Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?php echo base_url('cdashboard'); ?>">
-          <i class="bi bi-file-earmark-text"></i>
-          <span>Bimbingan Tugas Akhir</span>
+        <a class="nav-link collapsed" data-bs-target="#ujianTA-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Ujian Tugas Akhir</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End Bimbingan Tugas Akhir Nav -->
+        <ul id="ujianTA-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="<?php if($title == 'Ujian Tugas Akhir Menunggu'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianTugasAkhir/menunggu'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Menunggu</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Ujian Tugas Akhir Dijadwalkan'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianTugasAkhir/dijadwalkan'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Dijadwalkan</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Ujian Tugas Akhir Lulus'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianTugasAkhir/lulus'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Lulus</span>
+            </a>
+          </li>
+          <li>
+            <a class="<?php if($title == 'Ujian Tugas Akhir Lulus Revisi'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianTugasAkhir/lulusRevisi'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Lulus Revisi</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Pengajuan Tugas Akhir Nav -->
     </ul>
   </aside><!-- End Sidebar Kaprodi-->
 

@@ -137,6 +137,19 @@ public function rulesRevisi()
         return $query;
     }
 
+    public function outputIndexKaprodiSudahDiterima()
+    {
+        $this->db->select("*");
+        $this->db->from('ujianProposal');
+        $this->db->join('pengajuanProposal', 'ujianproposal.idProposal = pengajuanproposal.idproposal');
+        $this->db->join('mahasiswa as mahasiswa1', 'pengajuanproposal.NIM = mahasiswa1.NIM');
+        $this->db->where('ujianproposal.status', "Telah Selesai Ujian");
+
+        $query = $this->db->get()->result();
+
+        return $query;
+    }
+
     public function outputProsesDetailKaprodi($idUjianProposal)
     {
         $this->db->select("idUjianProposal, waktu, ruangan, ujianProposal.status, ujianProposal.fileRevisi,

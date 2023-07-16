@@ -18,14 +18,16 @@ class CUjianProposal extends CI_Controller
 
     public function index()
     {   
-        $data['title'] = 'Ujian Proposal';
+        $data['title'] = 'Ujian Proposal Belum Diterima';
         $data["ujianProposal"] = $this->MUjianProposal->outputIndexKaprodiBelumDiterima();
-        // var_dump($data["ujianProposal"]);
-        // die();
-        // $NIP = $this->MUjianProposal->getByNIM($data['NIM']);
-        // var_dump($data["output"]);
-        // die();
         $this->load->view("kaprodi/ujianProposal/belumDiterima", $data);
+    }
+
+    public function sudahDiterima()
+    {   
+        $data['title'] = 'Ujian Proposal Sudah Diterima';
+        $data["ujianProposal"] = $this->MUjianProposal->outputIndexKaprodiSudahDiterima();
+        $this->load->view("kaprodi/ujianProposal/sudahDiterima", $data);
     }
 
     public function add()
@@ -108,8 +110,6 @@ class CUjianProposal extends CI_Controller
                 echo "<script> alert('Propsal berhasil di tolak!') </script>";
                 redirect($url, 'refresh');
             }
-            var_dump($_POST['status']);
-            die();
         }
     }
 

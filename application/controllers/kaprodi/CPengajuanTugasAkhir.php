@@ -107,4 +107,27 @@ class CPengajuanTugasAkhir extends CI_Controller
     {
 
     }
+
+    public function downloadFileTugasAkhir($NIM = NULL)
+    {
+        $data['status'] = $this->MPengajuanTugasAkhir->getByNIM($NIM);
+        $file = $data['status']->fileTugasAkhir;
+        force_download('./upload/pengajuanTugasAkhir/'.$file, NULL);
+    }
+
+    public function downloadSuratKesediaanPembimbing1($NIM = NULL)
+    {
+        $data['status'] = $this->MPengajuanTugasAkhir->getByNIM($NIM);
+        $file = $data['status']->suratKesediaanPembimbing1;
+        force_download('./upload/suratKesediaanPembimbing1/'.$file, NULL);
+    }
+
+    public function downloadSuratKesediaanPembimbing2($NIM = NULL)
+    {
+        $data['status'] = $this->MPengajuanTugasAkhir->getByNIM($NIM);
+        $file = $data['status']->suratKesediaanPembimbing2;
+        force_download('./upload/suratKesediaanPembimbing2/'.$file, NULL);
+    }
+
+
 }

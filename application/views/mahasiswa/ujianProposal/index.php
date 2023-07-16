@@ -116,7 +116,10 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Jadwal Ujian</h5>
-              
+              <a href = "<?php echo base_url('mahasiswa/CPrintJadwalUjianProposal'); ?>" class="btn btn-primary" target="_blank">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Print Jadwal</span>
+                </a>
               <!-- Default Table -->
               <table>
                     <tr>

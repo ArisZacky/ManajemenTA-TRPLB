@@ -33,73 +33,76 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item">Pengajuan Tugas Akhir</li>
-          <li class="breadcrumb-item active">Sudah Diterima</li>
+          <li class="breadcrumb-item">Ujian Tugas Akhir</li>
+          <li class="breadcrumb-item active">Lulus</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
       <div class="row">
+      <div class="w3-panel w3-blue w3-display-container">
+            <?php echo $this->session->flashdata('success'); ?>
+      </div>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Pengajuan Tugas Akhir</h5>
-
+              <h5 class="card-title">Data Ujian Tugas Akhir Lulus</h5>
               <!-- Default Table -->
               <table class="table">
                 <thead>
                   <tr>
                       <th>No</th>
-                      <th>NIM</th>
+                      <th>Nama Mahasiswa</th>
                       <th>Judul Proposal</th>
-                      <th>Abstrak</th>
+                      <th>Waktu</th>
+                      <th>Ruangan</th>
                       <th>Pembimbing 1</th>
                       <th>Pembimbing 2</th>
-                      <th>Berkas Proposal</th>
-                      <th>Surat Pembimbing 1</th>
-                      <th>Surat Pembimbing 2</th>
+                      <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php 
-                    if(empty($pengajuanTugasAkhir)){
-                        echo "";
+                    if(empty($ujianTa)){
+                      echo "";
                     }else{
                     $no=1;
-                    foreach ($pengajuanTugasAkhir as $row): ?>
-                    <tr>
+                    foreach ($ujianTa as $row): ?>
+                    <tr id="baris<?= $no?>">
                       <td>
                         <?php echo $no ?>
                       </td>
                       <td>
-                        <?php echo $row->NIM ?>
+                        <?php echo $row->namaMahasiswa ?>
                       </td>
                       <td>
                         <?php echo $row->judulProposal ?>
                       </td>
                       <td>
-                        <?php echo $row->abstrak ?>
+                        <?php echo $row->waktu ?>
                       </td>
                       <td>
-                        <?php echo $row->namaDosen1 ?>
+                        <?php echo $row->ruangan ?>
                       </td>
                       <td>
-                        <?php echo $row->namaDosen2 ?>
+                        <?php echo $row->namaPem1 ?>
                       </td>
                       <td>
-                        <a class="btn btn-primary" href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir/downloadFileTugasAkhir/'.$row->NIM)?>">Download</a>
+                        <?php echo $row->namaPem2 ?>
                       </td>
                       <td>
-                        <a class="btn btn-primary" href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir/downloadSuratKesediaanPembimbing1/'.$row->NIM)?>">Download</a>
+                        <span class="badge bg-primary">
+                            <?php echo $row->status ?>
+                        </span>
                       </td>
-                      <td>
-                        <a class="btn btn-primary" href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir/downloadSuratKesediaanPembimbing2/'.$row->NIM)?>">Download</a>
-                      </td>
+                      <!-- <td>
+                        <a class="btn btn-success" href="<?php echo base_url('kaprodi/CUjianTugasAkhir/prosesLulus/'.$row->idUjianTA);?>">Luluskan</a>
+                      </td> -->
                     </tr>
                   <?php 
                     $no++;
                     endforeach;
-                 } ?>
+                  } ?>
                 </tbody>
               </table>
               <!-- End Default Table Example -->
@@ -119,15 +122,6 @@
   <?php $this->load->view('layouts/script') ?>
   <!-- END LOAD JAVASCRIPT -->
 
-
-  <script language= "javascript" >
-  function hapusdata(NIP){
-    if(confirm("Apakah yakin menghapus data ini ?")){
-      window.open("<?php echo base_url()?>admin/CCrudDosen/delete/"+NIP,"_self");
-    }
-  }
-
-</script>
 </body>
 
 </html>

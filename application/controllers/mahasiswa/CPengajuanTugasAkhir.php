@@ -52,8 +52,10 @@ class CPengajuanTugasAkhir extends CI_Controller
         $validation->set_rules($pengajuanTugasAkhir->rules());
         if ($validation->run()) {
             $fileTugasAkhir = $this->fileTugasAkhir();
+            $filePembimbing1 = $this->filePembimbing1();
+            $filePembimbing2 = $this->filePembimbing2();
 
-            $pengajuanTugasAkhir->updateMahasiswa($id, $fileTugasAkhir);
+            $pengajuanTugasAkhir->updateMahasiswa($id, $fileTugasAkhir, $filePembimbing1, $filePembimbing2);
             $url = base_url('mahasiswa/CPengajuanTugasAkhir');
             echo "<script> alert('Tugas Akhir Berhasil Diajukan') </script>";
             redirect($url, 'refresh');
@@ -62,6 +64,19 @@ class CPengajuanTugasAkhir extends CI_Controller
         // die();
 
         $this->load->view("mahasiswa/pengajuanTugasAkhir/create", $data);
+    }
+
+    public function selesaiBimbingan(){
+        $pengajuanTugasAkhir = $this->MPengajuanTugasAkhir;
+        $validation = $this->form_validation;
+        $validation->set_rules($pengajuanTugasAkhir->rulesSelesaiBimbingan());
+        $idPengajuanTA = $_POST['idPengajuanTA'];
+        if($validation->run()){
+            $pengajuanTugasAkhir->updateSelesaiBimbingan($idPengajuanTA);
+            $url = base_url('mahasiswa/CBimbingan/');
+            echo "<script> alert('Anda Telah Menyelesaikan Proses Bimbingan') </script>";
+            redirect($url, 'refresh');
+        }
     }
 
     public function fileTugasAkhir()
@@ -88,6 +103,55 @@ class CPengajuanTugasAkhir extends CI_Controller
             return false;
         }
     } 
+    public function filePembimbing1()
+    {
+        $filename = str_replace('','', 'SuratKesediaanPembimbing1_'.$this->session->userdata('NIM/NIP'));
+        $config['upload_path']          = FCPATH.'/upload/suratKesediaanPembimbing1/';
+		$config['allowed_types']        = 'pdf';
+		$config['file_name']            = $filename;
+		$config['overwrite']            = true;
+		$config['max_size']             = 10000; // 10MB
+        $this->upload->initialize($config);
+
+        if(!empty($_FILES['suratKesediaanPembimbing1'])){
+            if(!$this->upload->do_upload('suratKesediaanPembimbing1')){
+                $data['error'] = $this->upload->display_errors();
+                return false;
+            }else{
+                $uploadedData = $this->upload->data();
+                $filePembimbing1 = $uploadedData['file_name'];
+                return $filePembimbing1;
+            }
+        }else{
+            $data['error'] = $this->upload->display_errors();
+            return false;
+        }
+    } 
+
+    public function filePembimbing2()
+    {
+        $filename = str_replace('','', 'SuratKesediaanPembimbing1_'.$this->session->userdata('NIM/NIP'));
+        $config['upload_path']          = FCPATH.'/upload/suratKesediaanPembimbing2/';
+		$config['allowed_types']        = 'pdf';
+		$config['file_name']            = $filename;
+		$config['overwrite']            = true;
+		$config['max_size']             = 10000; // 10MB
+        $this->upload->initialize($config);
+        
+        if(!empty($_FILES['suratKesediaanPembimbing2'])){
+            if(!$this->upload->do_upload('suratKesediaanPembimbing2')){
+                $data['error'] = $this->upload->display_errors();
+                return false;
+            }else{
+                $uploadedData = $this->upload->data();
+                $filePembimbing1 = $uploadedData['file_name'];
+                return $filePembimbing1;
+            }
+        }else{
+            $data['error'] = $this->upload->display_errors();
+            return false;
+        }
+    }
 
     public function edit($idPengajuanTA = null)
     {

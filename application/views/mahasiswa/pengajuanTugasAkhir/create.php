@@ -97,6 +97,18 @@
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="suratKesediaanPembimbing1" class="col-sm-2 col-form-label">Surat Kesediaan Pembimbing 1</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile" name="suratKesediaanPembimbing1" id="suratKesediaanPembimbing1" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="suratKesediaanPembimbing2" class="col-sm-2 col-form-label">Surat Kesediaan Pembimbing 2</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile" name="suratKesediaanPembimbing2" id="suratKesediaanPembimbing2" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
                   <label for="fileTugasAkhir" class="col-sm-2 col-form-label">File Tugas Akhir</label>
                   <div class="col-sm-10">
                     <input class="form-control" type="file" id="formFile" name="fileTugasAkhir" id="fileTugasAkhir" required>

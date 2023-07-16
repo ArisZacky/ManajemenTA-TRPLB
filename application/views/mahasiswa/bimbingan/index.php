@@ -46,7 +46,9 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Bimbingan Tugas Akhir</h5>
-
+              <?php if ($pengajuan->statusBimbingan == "Selesai Bimbingan"){?>
+                <b>Anda Telah Menyelesaikan Bimbingan</b>
+              <?php } ?>
               <!-- Pills Tabs -->
               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -55,12 +57,19 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="pills-pembimbing2-tab" data-bs-toggle="pill" data-bs-target="#pills-pembimbing2" type="button" role="tab" aria-controls="pills-pembimbing2" aria-selected="false">Pembimbing 2</button>
                 </li>
+                <?php if ($pengajuan->statusBimbingan == "Sedang Bimbingan"){?>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" onclick="selesaiBimbingan('<?= $pengajuan->idPengajuanTA?>')" id="pills-selesai-bimbingan-tab" data-bs-toggle="modal" data-bs-target="#selesaiBimbingan" type="button" role="tab" aria-controls="pills-selesai-bimbingan" aria-selected="false">Selesaikan Bimbingan</button>
+                  </li>
+                <?php }?>
               </ul>
 
               <div class="tab-content pt-2" id="myTabContent">
                 <div class="tab-pane fade show active" id="pills-pembimbing1" role="tabpanel" aria-labelledby="pembimbing1-tab">
                 <!-- uploadBimbingan() -->
+                <?php if ($pengajuan->statusBimbingan == "Sedang Bimbingan"){?>
                 <button class ="btn btn-primary" onclick="bimbingan('<?= $pengajuan->idPengajuanTA?>', '<?=$p1->namaDosen?>', '<?=$p1->NIP?>')" type="button" data-bs-toggle="modal" data-bs-target="#modalPembimbing1">Buat Bimbingan</button>
+                <?php }?>
                 <h5>Nama Pembimbing : <?php echo $p1->namaDosen?></h5>
                 <h5>Judul Proposal  : <?php echo $pengajuan->judulProposal?></h5>
                 
@@ -93,7 +102,7 @@
                             <?php echo $row->keteranganRevisi ?>
                           </td>
                           <td>
-                            <?php echo $row->berkasBimbingan ?>
+                            <a href="<?php echo base_url('/upload/bimbinganProposal/'.$row->berkasBimbingan) ?>" target='__blank'><?php echo $row->berkasBimbingan ?></a>
                           </td>
                           <td>
                             <?php echo $row->status ?>
@@ -108,7 +117,9 @@
                   <!-- End Default Table Example -->
                 </div>
                 <div class="tab-pane fade" id="pills-pembimbing2" role="tabpanel" aria-labelledby="profile-tab">
+                <?php if ($pengajuan->statusBimbingan == "Sedang Bimbingan"){?>
                 <button class ="btn btn-primary" onclick="bimbingan('<?= $pengajuan->idPengajuanTA?>', '<?=$p2->namaDosen?>', '<?=$p2->NIP?>')" type="button" data-bs-toggle="modal" data-bs-target="#modalPembimbing1">Buat Bimbingan</button>
+                <?php } ?>
                 <h5>Nama Pembimbing : <?php echo $p2->namaDosen?></h5>
                 <h5>Judul Proposal  : <?php echo $pengajuan->judulProposal?></h5>
                   <!-- Default Table -->
@@ -140,7 +151,7 @@
                             <?php echo $row2->keteranganRevisi ?>
                           </td>
                           <td>
-                            <?php echo $row2->berkasBimbingan ?>
+                            <a href="<?php echo base_url('/upload/bimbinganProposal/'.$row2->berkasBimbingan) ?>" target='__blank'><?php echo $row2->berkasBimbingan?></a>
                           </td>
                           <td>
                             <?php echo $row2->status ?>
@@ -234,6 +245,32 @@
         </div>
       </div>
     </div><!-- End Vertically centered Modal-->
+
+      <!-- MODAL SELESAI BIMBINGAN -->
+      <div class="modal fade" id="selesaiBimbingan" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Selesai Bimbingan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <?php echo form_open_multipart('mahasiswa/CPengajuanTugasAkhir/selesaiBimbingan');?>
+            <input type="hidden" id="selesaiBimbingan-idPengajuanTA" name="idPengajuanTA" value="">
+            <input type="hidden" id="statusBimbingan" name="statusBimbingan" value="Selesai Bimbingan">
+            <div>
+              <h1>Apakah Anda Yakin Menyelesaikan Bimbingan?</h1>
+              <p>Proses ini tidak dapat dikembalikan lagi</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <input type="submit" id="submit" class="btn btn-primary" value="Simpan"></input>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div><!-- End Vertically centered Modal-->
     
   </main><!-- End #main -->
   <script language= "javascript" >
@@ -244,6 +281,9 @@
       document.getElementById('NIP').value = nip;
     }
 
+    function selesaiBimbingan(id){
+      document.getElementById('selesaiBimbingan-idPengajuanTA').value = id;
+    }
   </script>
   <script language= "javascript" >
     function tes(){

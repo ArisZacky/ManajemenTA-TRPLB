@@ -29,6 +29,20 @@ class MBimbingan extends CI_Model
         'rules' => 'required'],
     ];
 }
+
+public function rulesDosen()
+{
+    return [
+        ['field' => 'idBimbingan',
+        'label' => 'idBimbingan',
+        'rules' => 'required'],
+
+        ['field' => 'status',
+        'label' => 'status',
+        'rules' => 'required'],
+    ];
+}
+
     public function getAll()
     {
         return $this->db->get('bimbingan')->result();
@@ -69,19 +83,54 @@ class MBimbingan extends CI_Model
         return $this->db->insert('bimbingan', $this);
     }
 
-    public function update()
+    public function outputIndexDosen($NIP)
+    {
+        $this->db->select("bimbingan.*, pengajuanta.judulProposal, pengajuanta.abstrak, pengajuanta.modelTa, mahasiswa.namaMahasiswa");
+        $this->db->from("bimbingan");
+        $this->db->join("pengajuanta", "bimbingan.idPengajuanTA = pengajuanta.idPengajuanTA");
+        $this->db->join("mahasiswa", "pengajuanta.NIM = mahasiswa.NIM");
+        $this->db->where("NIP", $NIP);
+        $this->db->where("bimbingan.status", "Diproses");
+        $query = $this->db->get()->result();
+        return $query;
+    }
+    
+    public function outputIndexDosenSudahDiproses($NIP)
+    {
+        $this->db->select("bimbingan.*, pengajuanta.judulProposal, pengajuanta.abstrak, pengajuanta.modelTa, mahasiswa.namaMahasiswa");
+        $this->db->from("bimbingan");
+        $this->db->join("pengajuanta", "bimbingan.idPengajuanTA = pengajuanta.idPengajuanTA");
+        $this->db->join("mahasiswa", "pengajuanta.NIM = mahasiswa.NIM");
+        $this->db->where("NIP", $NIP);
+        $this->db->where("bimbingan.status", "Diterima");
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
+    public function outputProsesDosen($idBimbingan)
+    {
+        $this->db->select("bimbingan.*, pengajuanta.judulProposal, pengajuanta.abstrak, pengajuanta.modelTa, mahasiswa.namaMahasiswa");
+        $this->db->from("bimbingan");
+        $this->db->join("pengajuanta", "bimbingan.idPengajuanTA = pengajuanta.idPengajuanTA");
+        $this->db->join("mahasiswa", "pengajuanta.NIM = mahasiswa.NIM");
+        $this->db->where("idBimbingan", $idBimbingan);
+        $query = $this->db->get()->row();
+        return $query;
+    }
+    public function updateDosen()
     {
         $post = $this->input->post();
-        $this->NIP = $post["NIP"];
-        $this->namaKaprodi = $post["namaKaprodi"];
-        $this->prodi = $post["prodi"];
-        $this->tahunJabatan = $post["tahunJabatan"];
-        $this->email = $post["email"];
-        return $this->db->update('kaprodi', $this, array('NIP' => $post['NIP']));
+        $this->idBimbingan = $post["idBimbingan"];
+        $this->status = $post["status"];
+        return $this->db->update('bimbingan', $this, array('idBimbingan' => $post['idBimbingan']));
+    }
+    public function update()
+    {
+
     }
 
     public function delete($NIP)
     {
-        return $this->db->delete('kaprodi', array("NIP" => $NIP));
+
     }
 }
