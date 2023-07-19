@@ -29,12 +29,12 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Buat Pengajuan Tugas Akhir</h1>
+      <h1>Buat Pengajuan Proposal</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item">Pengajuan Tugas Akhir</li>
-          <li class="breadcrumb-item active">Buat Pengajuan Tugas Akhir</li>
+          <li class="breadcrumb-item">Proposal</li>
+          <li class="breadcrumb-item active">Buat Pengajuan Proposal</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -43,7 +43,7 @@
       <div class="row">
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Buat Pengajuan Tugas Akhir</h5>
+              <h5 class="card-title">Buat Pengajuan Proposal</h5>
 
               <!-- General Form Elements -->
               <?php echo form_open_multipart('mahasiswa/CPengajuanProposal/add');?>

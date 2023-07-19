@@ -29,11 +29,12 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Pengajuan Tugas Akhir</h1>
+      <h1>Pengajuan Proposal</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">Dashboard</li>
-          <li class="breadcrumb-item active">Pengajuan Tugas Akhir</li>
+          <li class="breadcrumb-item">Proposal</li>
+          <li class="breadcrumb-item active">Pengajuan Proposal</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

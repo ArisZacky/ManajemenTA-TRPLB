@@ -161,6 +161,12 @@
         </a>
         <ul id="ujianproposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+            <a class="<?php if($title == 'Ujian Proposal Sudah Dijadwal'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianProposal/sudahDinilai'); ?>">
+              <i class="bi bi-circle"></i>
+              <span>Sudah Dinilai</span>
+            </a>
+          </li>
+          <li>
             <a class="<?php if($title == 'Ujian Proposal Belum Diterima'){ echo "active";}else{ echo "";}?>" href="<?php echo site_url('kaprodi/CUjianProposal/index'); ?>">
               <i class="bi bi-circle"></i>
               <span>Sudah Dinilai menunggu Konfirmasi</span>

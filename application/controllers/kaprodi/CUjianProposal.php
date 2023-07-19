@@ -30,11 +30,30 @@ class CUjianProposal extends CI_Controller
         $this->load->view("kaprodi/ujianProposal/sudahDiterima", $data);
     }
 
+    public function sudahDinilai()
+    {   
+        $data['title'] = 'Ujian Proposal Sudah Dinilai';
+        $data["ujianProposal"] = $this->MUjianProposal->outputIndexKaprodiSudahDinilai();
+        $this->load->view("kaprodi/ujianProposal/dijadwalkan", $data);
+    }
+
     public function add()
     {
 
     }
 
+    public function lanjutRevisi()
+    {
+        $ujianProposal = $this->MUjianProposal;
+        $validation = $this->form_validation;
+        $validation->set_rules($ujianProposal->rulesKaprodi());
+        if($validation->run()){
+            $ujianProposal->update();
+            $url = base_url('kaprodi/CUjianProposal/sudahDinilai');
+            echo "<script> alert('Berhasil Lanjut Tahap Revisi!') </script>";
+            redirect($url, 'refresh');
+        }
+    }
     public function proses($idUjianProposal = null)
     {
         $data['title'] = "Approve Revisi";

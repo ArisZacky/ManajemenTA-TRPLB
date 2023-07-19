@@ -115,22 +115,32 @@ public function rulesRevisi()
         return $this->db->update('ujianProposal', $this, array('idUjianProposal' => $post['idUjianProposal']));
     }
 
+    public function outputIndexKaprodiSudahDinilai()
+    {
+        $this->db->select("*, COUNT(`nilaiproposal`.`idUjianProposal`) cnt");
+        $this->db->from('ujianProposal');
+        $this->db->join('nilaiproposal', 'ujianproposal.idUjianProposal = nilaiproposal.idUjianProposal');
+        $this->db->join('pengajuanProposal', 'ujianproposal.idProposal = pengajuanproposal.idproposal');
+        $this->db->join('mahasiswa as mahasiswa1', 'pengajuanproposal.NIM = mahasiswa1.NIM');
+        $this->db->where('ujianproposal.status', "Dijadwalkan");
+        $this->db->group_by('nilaiproposal.idUjianProposal');
+        $this->db->having('COUNT(`nilaiproposal`.`idUjianProposal`) = 3');
+
+        $query = $this->db->get()->result();
+
+        return $query;
+    }
+
     public function outputIndexKaprodiBelumDiterima()
     {
         $this->db->select("*, COUNT(`nilaiproposal`.`idUjianProposal`) cnt");
-        $this->db->from('nilaiProposal');
-        $this->db->join('ujianproposal', 'nilaiproposal.idUjianProposal = ujianproposal.idUjianProposal');
+        $this->db->from('ujianProposal');
+        $this->db->join('nilaiproposal', 'ujianproposal.idUjianProposal = nilaiproposal.idUjianProposal');
         $this->db->join('pengajuanProposal', 'ujianproposal.idProposal = pengajuanproposal.idproposal');
         $this->db->join('mahasiswa as mahasiswa1', 'pengajuanproposal.NIM = mahasiswa1.NIM');
         $this->db->where('ujianproposal.status', "Tahap Revisi");
         $this->db->group_by('nilaiproposal.idUjianProposal');
         $this->db->having('COUNT(`nilaiproposal`.`idUjianProposal`) = 3');
-
-        // SELECT *, COUNT(`nilaiproposal`.`NIM`) cnt FROM nilaiproposal 
-        // JOIN ujianproposal ON nilaiproposal.idUjianProposal = ujianproposal.idUjianProposal 
-        // JOIN pengajuanproposal ON ujianproposal.idProposal = pengajuanproposal.idProposal 
-        // GROUP BY `nilaiproposal`.`NIM` 
-        // HAVING COUNT(`nilaiproposal`.`NIM`) = 3;
 
         $query = $this->db->get()->result();
 
