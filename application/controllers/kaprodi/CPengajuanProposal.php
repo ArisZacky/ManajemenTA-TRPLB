@@ -65,8 +65,22 @@ class CPengajuanProposal extends CI_Controller
         if($validation->run() == false){
             $this->load->view("kaprodi/pengajuanProposal/proses", $data);
         }else{
+            $this->db->trans_begin();
+
             $pengajuan->update();
             $ujianProposal->save();
+
+            if ($this->db->trans_status() === FALSE)
+            {
+                    $this->db->trans_rollback();
+                    echo "Gagal!";
+            }
+            else
+            {
+                    $this->db->trans_commit();
+                    echo "Berhasil!";
+            }
+
             $url = base_url('kaprodi/CpengajuanProposal/sudahDiterima');
             echo "<script> alert('Propsal berhasil di approve!') </script>";
             redirect($url, 'refresh');
