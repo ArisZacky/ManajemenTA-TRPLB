@@ -78,6 +78,13 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link <?php if($title == 'SK'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('dosen/CSK/'); ?>">
+          <i class="bi bi-file-earmark"></i>
+          <span>SK</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#ujianproposal-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal Ujian Proposal</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -132,6 +139,13 @@
         <a class="nav-link <?php if($title == 'Dashboard'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('cdashboard'); ?>">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link <?php if($title == 'SK'){ echo "";}else{ echo "collapsed";}?> " href="<?php echo base_url('kaprodi/CSK/'); ?>">
+          <i class="bi bi-file-earmark"></i>
+          <span>SK</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
