@@ -72,13 +72,13 @@ class CPengajuanProposal extends CI_Controller
 
             if ($this->db->trans_status() === FALSE)
             {
-                    $this->db->trans_rollback();
-                    echo "Gagal!";
+                $this->db->trans_rollback();
+                echo "Gagal!";
             }
             else
             {
-                    $this->db->trans_commit();
-                    echo "Berhasil!";
+                $this->db->trans_commit();
+                echo "Berhasil!";
             }
 
             $url = base_url('kaprodi/CpengajuanProposal/sudahDiterima');
