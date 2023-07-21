@@ -289,10 +289,11 @@
             </a>
           </li>
         </ul>
-      </li><!-- End Master Data Nav -->
+      </li>
+      <!-- End Master Data Nav -->
 
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tugasAkhir-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journals"></i><span>Tugas Akhir</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -322,22 +323,25 @@
             </a>
           </li>
         </ul>
-      </li><!-- End Tugas Akhir Nav -->
+      </li> -->
+      <!-- End Tugas Akhir Nav -->
 
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="<?php echo base_url('cdashboard'); ?>">
           <i class="bi bi-clipboard"></i>
           <span>Mahasiswa Bimbingan</span>
         </a>
-      </li><!-- End Mahasiswa Bimbingan Nav -->
+      </li> -->
+      <!-- End Mahasiswa Bimbingan Nav -->
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="<?php echo base_url('cdashboard'); ?>">
           <i class="bi bi-mortarboard"></i>
           <span>Mahasiswa Ujian</span>
         </a>
-      </li><!-- End Mahasiswa Ujian Nav -->
+      </li> -->
+      <!-- End Mahasiswa Ujian Nav -->
 
     </ul>
 
