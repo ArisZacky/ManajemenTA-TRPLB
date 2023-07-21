@@ -85,7 +85,8 @@
                         <?php echo $row->namaDosen1 ?>
                       </td>
                       <td>
-                        <a class="btn btn-primary" href="">Download Berkas</a>
+                        
+                        <a class="btn btn-primary" href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir/downloadFileTugasAkhir/'.$row->NIM)?>">Download Berkas</a>
                       </td>
                       <td>
                         <a class="btn btn-success" href="<?php echo base_url('kaprodi/CPengajuanTugasAkhir/proses/'.$row->idPengajuanTA); ?>">Proses</a>

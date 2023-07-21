@@ -40,7 +40,7 @@
 
     <section class="section dashboard">
       <div class="row">
-      <?php if ($pengajuan == null) { ?>
+      <?php if ($pengajuan == null || $pengajuan->status != "Diterima") { ?>
         <h1>Anda belum menyelesaikan pengajuan proposal!</h1>
         <?php } else {?> 
           <div class="card">
