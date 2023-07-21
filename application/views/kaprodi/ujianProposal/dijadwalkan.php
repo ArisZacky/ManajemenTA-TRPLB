@@ -59,7 +59,7 @@
                       <th>Waktu</th>
                       <th>Ruangan</th>
                       <th>Model Proposal</th>
-                      <th>Action</th>
+                      <!-- <th>Action</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -94,9 +94,9 @@
                       <td>
                         <?php echo $row->modelProposal ?>
                       </td>
-                      <td>
+                      <!-- <td>
                           <button class="btn btn-success" onclick="lanjutRevisi('<?= $row->idUjianProposal?>')" data-bs-toggle="modal" data-bs-target="#lanjutRevisi" type="button" role="tab" aria-selected="false">Tahap Revisi</button>
-                      </td>
+                      </td> -->
                     </tr>
                   <?php 
                     $no++;
