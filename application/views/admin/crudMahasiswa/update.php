@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="NIM" class="form-label">NIM</label>
-                  <input type="text" class="form-control" id="NIM" name="NIM" value="<?php echo $mahasiswa->NIM ?>" maxlength=10>
+                  <input type="text" class="form-control" id="NIM" name="NIM" value="<?php echo $mahasiswa->NIM ?>" maxlength=10 readonly>
                 </div>
                 <div class="col-md-6">
                   <label for="prodi" class="form-label">Prodi</label>
